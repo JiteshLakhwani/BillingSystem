@@ -26,7 +26,8 @@ class UserDetailController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'Token Expired'], 500);
         }
-                $id= (integer) $user['id'];
+    
+                $id= (integer) $user['adminfirm_id'];
                 
                 $admindetails = AdminFirm::find($id);
                 
