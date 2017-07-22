@@ -28,18 +28,4 @@ class AuthenticateController extends Controller
         // all good so return the token
         return response()->json(compact('token'));
     }
-
-    // public function login()
-    // {
-    //      return Response::json([
-    //         'error' =>['message'=> 'Login into System']
-    //     ],440);
-    // }
-
-        public function checkAuthentication()
-    {
-        $token = \JWTAuth::getToken();
-        $user = \JWTAuth::toUser($token);
-        return $user;
-    }
 }

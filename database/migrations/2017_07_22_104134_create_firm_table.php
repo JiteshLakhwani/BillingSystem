@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerTable extends Migration
+class CreateFirmTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,25 @@ class CreateCustomerTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->increments('customer_id');
-            $table->string('customer_name');
-            $table->string('firm_name');
-            $table->string('email')->unique()->nullable();
+        Schema::create('firms', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('person_name');
+            $table->bigInteger('gst_number')->unique();
             $table->string('shipping_address');
             $table->string('shipping_city');
             $table->string('shipping_state');
             $table->integer('shipping_state_code');
             $table->integer('shipping_pin_code');
             $table->bigInteger('shipping_mobile_number')->nullable();
-            $table->bigInteger('shipping_landline')->nullable();
+            $table->bigInteger('shipping_landline_number')->nullable();
             $table->string('billing_address');
-            $table->string('billing_city');
-            $table->string('billing_state');
+            $table->string('billing_city_name');
+            $table->string('billing_state_name');
             $table->integer('billing_state_code');
-            $table->integer('billing_pin_code');
+            $table->integer('billing_pincode');
             $table->bigInteger('billing_mobile_number')->nullable();
-            $table->bigInteger('billing_landline')->nullable();
-            $table->bigInteger('gst_number')->unique();
+            $table->bigInteger('billing_landline_number')->nullable();
             $table->timestamps();
         });
     }
@@ -44,6 +43,6 @@ class CreateCustomerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('firms');
     }
 }
