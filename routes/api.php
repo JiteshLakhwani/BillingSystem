@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
 
 Route::post('/login','AuthenticateController@authenticate');
 
+Route::post('/createUser','FirmController@store');
+
 Route::get('/userDetails','UserDetailController@show');
+
+Route::patch('/userDetails/{id}','UserDetailController@update');
 
 Route::get('/login','AuthenticateController@login') -> name('login');
