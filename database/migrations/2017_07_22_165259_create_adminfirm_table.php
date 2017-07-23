@@ -18,13 +18,12 @@ class CreateAdminfirmTable extends Migration
             $table->string('name');
             $table->string('person_name');
             $table->string('gst_number')->unique();
-            $table->string('billing_address');
-            $table->string('billing_city_name');
-            $table->string('billing_state_name');
-            $table->integer('billing_state_code');
-            $table->integer('billing_pincode');
-            $table->bigInteger('billing_mobile_number')->nullable();
-            $table->bigInteger('billing_landline_number')->nullable();
+            $table->string('address');
+            $table->string('cityname');
+            $table->integer('state_code');
+            $table->integer('pincode');
+            $table->bigInteger('mobile_number')->nullable();
+            $table->bigInteger('landline_number')->nullable();
             $table->timestamps();
         });
     }

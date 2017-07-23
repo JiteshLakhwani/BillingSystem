@@ -14,8 +14,13 @@ class AdminFirm extends Model
     ];
 
     public $table="adminfirms";
+    
     public function user()
     {
         return $this->hasMany(User::class);
     }
+     public function state()
+{
+    return $this->belongsTo(State::class, 'billing_state_code', 'state_code');
+}
 }

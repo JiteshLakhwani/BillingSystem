@@ -5,6 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Http\Request;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use \Response;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -38,4 +43,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AdminFirm::class);
     }
+
 }

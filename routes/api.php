@@ -22,3 +22,8 @@ Route::get('/userDetails','UserDetailController@show');
 Route::patch('/userDetails/{id}','UserDetailController@update');
 
 Route::get('/login','AuthenticateController@login') -> name('login');
+
+
+// Routes for states 
+Route::get('/getStates','StateController@index');
+

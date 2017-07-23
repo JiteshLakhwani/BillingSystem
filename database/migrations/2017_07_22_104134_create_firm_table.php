@@ -21,14 +21,12 @@ class CreateFirmTable extends Migration
             $table->string('email')->unique();
             $table->string('shipping_address');
             $table->string('shipping_city');
-            $table->string('shipping_state');
             $table->integer('shipping_state_code');
             $table->integer('shipping_pincode');
             $table->bigInteger('shipping_mobile_number')->nullable();
             $table->bigInteger('shipping_landline_number')->nullable();
             $table->string('billing_address');
             $table->string('billing_city');
-            $table->string('billing_state');
             $table->integer('billing_state_code');
             $table->integer('billing_pincode');
             $table->bigInteger('billing_mobile_number')->nullable();
