@@ -160,7 +160,7 @@ use \Validator;
             $state = State::find($id);
             if($state == null)
             {
-                return response()->json(["error"=>"record already deleted"]);
+                return response()->json(["error"=>"Couldn't find record"]);
             }
             State::destroy($id);
             $state=State::find($id);

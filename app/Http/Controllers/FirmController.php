@@ -181,7 +181,19 @@ class FirmController extends Controller
      */
     public function destroy($id)
     {
-        //
+            $this->verifyToken();
+
+            $firm = Firm::find($id);
+            if($firm == null)
+            {
+                return response()->json(["error"=>"Couldn't find record"]);
+            }
+            Firm::destroy($id);
+            $firm=Firm::find($id);
+            if($firm==null)
+            {
+                return response()->json(["message"=>"Record deleted successfuly"]);
+            }
     }
 
     public function verifyToken()

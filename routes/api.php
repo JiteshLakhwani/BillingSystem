@@ -17,8 +17,10 @@ Route::post('/login','AuthenticateController@authenticate');
 Route::get('/login','AuthenticateController@login') -> name('login');
 
 //Route for creating customer
-Route::post('/createUser','FirmController@store');
-Route::patch('/updateUser/{id}','FirmController@update');
+Route::post('/createCustomer','FirmController@store');
+Route::patch('/updateCustomer/{id}','FirmController@update');
+Route::delete('/deleteCustomer/{id}','FirmController@destroy');
+
 
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
