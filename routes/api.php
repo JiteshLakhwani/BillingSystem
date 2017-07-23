@@ -26,4 +26,5 @@ Route::get('/login','AuthenticateController@login') -> name('login');
 
 // Routes for states 
 Route::get('/getStates','StateController@index');
+Route::post('/addState','StateController@store');
 

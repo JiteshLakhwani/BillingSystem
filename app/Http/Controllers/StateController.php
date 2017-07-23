@@ -7,6 +7,7 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use \Response;
 use App\State;
+use \Validator;
 
 class StateController extends Controller
 {
@@ -49,9 +50,8 @@ class StateController extends Controller
      */
     public function create()
     {
-        //
+ 
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -60,8 +60,26 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+               $this->verifyToken();
+
+        $validator = Validator::make($request->all(), [
+
+            "state_code"=> 'required|integer|unique:states',
+            "state_name"=> 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["message" => $validator->errors()->all()], 400);
+        }
+$state = State::create([
+                "state_code" => $request->state_code,
+                "state_name" => $request->state_name
+        ]);
+
+        return response()->json(["state_code"=>$state->state_code,
+                                "state_name"=>$state->state_name]);
     }
+    
 
     /**
      * Display the specified resource.
@@ -106,5 +124,19 @@ class StateController extends Controller
     public function destroy($id)
     {
         
+    }
+
+    public function verifyToken()
+    {
+            try {
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                
+                return response()->json(['error' => 'Token Not Available'], 400);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'Token Expired'], 500);
+        }
+
     }
 }

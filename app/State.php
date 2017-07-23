@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
+    protected $fillable = ['state_code','state_name'];
        protected $primaryKey = 'state_code';
     public $incrementing = false;
    
