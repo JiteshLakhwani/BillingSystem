@@ -38,15 +38,7 @@ class FirmController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                
-                return response()->json(['error' => 'Please verify your token'], 400);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'Token Expired'], 500);
-        }
+        $this->verifyToken();
 
         $validator = Validator::make($request->all(), [
             "name" => 'required|string',
@@ -91,7 +83,7 @@ class FirmController extends Controller
             "shipping_landline_number" =>  $request->ship_landline_number,
         ]);
 
-        return response()->json(["user" => $user]);
+        return response()->json($user);
 
     }
 
@@ -126,7 +118,59 @@ class FirmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->verifyToken();
+
+            $validator = Validator::make($request->all(), [
+            "name" => 'required|string|max:191',
+            "person_name" => 'required|string|max:191',
+            "gst_number" => 'required|min:15|max:15',
+            "email" => 'required|email|max:191',
+            "bill_address" => 'required|max:191',
+            "bill_cityname" => 'required|string|max:191',
+            "bill_state_code" => 'required|integer',
+            "bill_pincode" => 'required|integer',
+            "bill_mobile_number" => 'integer',
+            "bill_landline_number" => 'integer',
+            "ship_address" => 'required|max:191',
+            "ship_cityname" => 'required|string|max:191',
+            "ship_state_code" => 'required|integer',
+            "ship_pincode" => 'required|integer',
+            "ship_mobile_number" => 'integer',
+            "ship_landline_number" => 'integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["message" => $validator->errors()->all()], 400);
+        }
+
+        $firm = Firm::where("id", $id)->update([
+            "name" => $request->name,
+            "person_name" => $request->person_name,
+            "gst_number" => $request->gst_number,
+            "email" => $request->email,
+            "billing_address" => $request->bill_address,
+            "billing_city" => $request->bill_cityname,
+            "billing_state_code" => $request->bill_state_code,
+            "billing_pincode" => $request->bill_pincode,
+            "billing_mobile_number" => $request->bill_mobile_number,
+            "billing_landline_number" =>  $request->bill_landline_number,
+            "shipping_address" => $request->ship_address,
+            "shipping_city" => $request->ship_cityname,
+            "shipping_state_code" => $request->ship_state_code,
+            "shipping_pincode" => $request->ship_pincode,
+            "shipping_mobile_number" => $request->ship_mobile_number,
+            "shipping_landline_number" =>  $request->ship_landline_number,
+
+        ]);
+        if($firm==1)
+        {
+             $firm = Firm::find($id);
+             
+                 return Response::json($firm);
+        }
+        else{
+            return response()->json(["message" => "Failed to update record"]);
+        }
     }
 
     /**
@@ -139,4 +183,17 @@ class FirmController extends Controller
     {
         //
     }
+
+    public function verifyToken()
+    {
+            try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
+        }
 }

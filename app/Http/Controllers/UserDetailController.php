@@ -142,19 +142,21 @@ class UserDetailController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'Token Expired'], 500);
             }
+            $checkUser = User::find($id);
+                 if($checkUser == null)
+                    {
+                        return response()->json(["error"=>"Couldn't find record"]);
+                    }
+
             $currentUser=$user['id'];
             if($currentUser == $id)
             {
             return response()->json(["message"=>"cannaot delete logged in user"]);    
             }
-        $user = User::find($id);
-         if($user == null)
-        {
-            return response()->json(["error"=>"record already deleted"]);
-        }
+        
         User::destroy($id);
         $user=User::find($id);
-        if($state==null)
+        if($user==null)
         {
             return response()->json(["message"=>"Record deleted successfully"]);
         }
