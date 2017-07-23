@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('security_question')->nullable();
             $table->string('security_answer')->nullable();
-            $table->integer('adminfirm_id');
+            $table->integer('adminfirm_id')->default(1);
             $table->rememberToken()->nullable();
             $table->timestamps();
         });

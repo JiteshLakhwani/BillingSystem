@@ -19,8 +19,7 @@ class UserDetailController extends Controller
     // }
     public function show()
     {
-        
- try {
+    try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 
                 return response()->json(['error' => 'Token Not Available'], 400);
@@ -29,24 +28,23 @@ class UserDetailController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'Token Expired'], 500);
         }
-    
                 $id= (integer) $user['adminfirm_id'];
                 
                 $admindetails = AdminFirm::find($id);
-                
+                // dd($admindetails['created_at']->toDateString());
                  return Response::json(['username'=> $user['name'],
                                         'email' => $user['email'],
 
                                         'firm_name' => $admindetails['name'],
                                         'gst_number' => $admindetails['gst_number'],
-                                        'billing_address' => $admindetails['billing_address'],
-                                        'billing_city_name' => $admindetails['billing_city_name'],
-                                        'billing_state_code' => $admindetails['billing_state_code'],
-                                        'billing_pincode' => $admindetails['billing_pincode'],
-                                        'billing_mobile_number' => $admindetails['billing_mobile_number'],
-                                        'billing_landline_number' => $admindetails['billing_landline_number'],
-                                        'billing_created_date' => $admindetails['created_at'],
-                                        'billing_updated_date' => $admindetails['updated_at'],
+                                        'address' => $admindetails['address'],
+                                        'cityname' => $admindetails['cityname'],
+                                        'state_code' => $admindetails['state_code'],
+                                        'pincode' => $admindetails['pincode'],
+                                        'mobile_number' => $admindetails['mobile_number'],
+                                        'landline_number' => $admindetails['landline_number'],
+                                        'created_date' => $admindetails['created_at']->toDateString(),
+                                        'updated_date' => $admindetails['updated_at'],
 
         ]);
     }
@@ -67,36 +65,35 @@ class UserDetailController extends Controller
     
 
         $user = User::find($id);
-        echo $user->adminfirm->state_code;
 
-        // $validator = Validator::make($request->all(), [
-        //     "username" => 'required|string',
-        //     "email" => 'required|email|max:255|unique:users',
+        $validator = Validator::make($request->all(), [
+            "username" => 'required|string',
+            "email" => 'required|email|max:255|unique:users',
 
-        //     "firm_name" => 'required|string',
-        //     "gst_number" => 'required|min:15|max:15',
-        //     "address" => 'required',
-        //     "city_name" => 'required|string',
-        //     "state_code" => 'required|string',
-        //     "pincode" => 'required|integer',
-        //     "mobile_number" => 'integer',
-        //     "landline_number" => 'integer',
-        // ]);
+            "firm_name" => 'required|string',
+            "gst_number" => 'required|min:15|max:15',
+            "address" => 'required',
+            "city_name" => 'required|string',
+            "state_code" => 'required|string',
+            "pincode" => 'required|integer',
+            "mobile_number" => 'integer',
+            "landline_number" => 'integer',
+        ]);
 
-        // if ($validator->fails()) {
-        //     return response()->json(["message" => $validator->errors()->all()], 400);
-        // }
+        if ($validator->fails()) {
+            return response()->json(["message" => $validator->errors()->all()], 400);
+        }
 
-        // $user = AdminFirm::where("id", $id)->update([
-        //     "name" => $request->name,
-        //     "gst_number" => $request->gst_number,
-        //     "billing_address" => $request->address,
-        //     "billing_city_name" => $request->city_name,
-        //     "billing_state_code" => $request->state_code,
-        //     "billing_pincode" => $request->pincode,
-        //     "billing_mobile_number" => $request->mobile_number,
-        //     "billing_landline_number" =>  $request->landline_number,
-        // ]);
+        $user = AdminFirm::where("id", $id)->update([
+            "name" => $request->firm_name,
+            "gst_number" => $request->gst_number,
+            "address" => $request->address,
+            "cityname" => $request->city_name,
+            "state_code" => $request->state_code,
+            "pincode" => $request->pincode,
+            "mobile_number" => $request->mobile_number,
+            "landline_number" =>  $request->landline_number,
+        ]);
 
         // return response()->json(["user" => $user]);
 

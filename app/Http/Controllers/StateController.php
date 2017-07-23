@@ -100,7 +100,7 @@ $state = State::create([
      */
     public function edit($id)
     {
-        //
+    
     }
 
     /**
@@ -112,8 +112,30 @@ $state = State::create([
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->verifyToken();
+
+        $validator = Validator::make($request->all(), [
+
+            "state_code"=> 'required',
+            "state_name"=> 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["message" => $validator->errors()->all()], 400);
+        }
+            $state = State::where("state_code", $id)->update([
+                "state_code" => $request->state_code,
+                "state_name" => $request->state_name
+        ]);
+
+        if($state==1)
+        {
+            $updatedState = State::find($id);
+            return response()->json(["state_code"=>$updatedState->state_code,
+                                "state_name"=>$updatedState->state_name]);
     }
+        }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -123,7 +145,12 @@ $state = State::create([
      */
     public function destroy($id)
     {
-        
+        State::destroy($id);
+        $state=State::find($id);
+        if($state==null)
+        {
+            return response()->json(["message"=>"Record deleted"]);
+        }
     }
 
     public function verifyToken()
