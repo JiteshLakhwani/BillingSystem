@@ -113,6 +113,11 @@ $state = State::create([
     public function update(Request $request, $id)
     {
         $this->verifyToken();
+        $state = State::find($id);
+         if($state == null)
+        {
+            return response()->json(["error"=>"State couldn't find"]);
+        }
 
         $validator = Validator::make($request->all(), [
 
@@ -123,6 +128,8 @@ $state = State::create([
         if ($validator->fails()) {
             return response()->json(["message" => $validator->errors()->all()], 400);
         }
+
+  
             $state = State::where("state_code", $id)->update([
                 "state_code" => $request->state_code,
                 "state_name" => $request->state_name
@@ -133,7 +140,11 @@ $state = State::create([
             $updatedState = State::find($id);
             return response()->json(["state_code"=>$updatedState->state_code,
                                 "state_name"=>$updatedState->state_name]);
-    }
+        }
+        else
+        {
+            return response()->json(["message"=>"Couldn't update the data"]);
+        }
         }
     
 
@@ -145,6 +156,11 @@ $state = State::create([
      */
     public function destroy($id)
     {
+        $state = State::find($id);
+         if($state == null)
+        {
+            return response()->json(["error"=>"record already deleted"]);
+        }
         State::destroy($id);
         $state=State::find($id);
         if($state==null)

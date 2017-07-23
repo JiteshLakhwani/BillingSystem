@@ -44,7 +44,7 @@ class UserDetailController extends Controller
                                         'mobile_number' => $admindetails['mobile_number'],
                                         'landline_number' => $admindetails['landline_number'],
                                         'created_date' => $admindetails['created_at']->toDateString(),
-                                        'updated_date' => $admindetails['updated_at'],
+                                        'updated_date' => $admindetails['updated_at']->toDateString(),
 
         ]);
     }
@@ -53,7 +53,7 @@ class UserDetailController extends Controller
  public function update(Request $request, $id)
     {
 
- try {
+        try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 
                 return response()->json(['error' => 'Token Not Available'], 400);
@@ -62,13 +62,15 @@ class UserDetailController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'Token Expired'], 500);
             }
-    
 
-        $user = User::find($id);
-
+        $checkUser=User::find($id);
+        if($checkUser == null)
+        {
+            return response()->json(["error"=>"User couldn't find"]);
+        }
         $validator = Validator::make($request->all(), [
             "username" => 'required|string',
-            "email" => 'required|email|max:255|unique:users',
+            "email" => 'required|email|max:255',
 
             "firm_name" => 'required|string',
             "gst_number" => 'required|min:15|max:15',
@@ -84,7 +86,14 @@ class UserDetailController extends Controller
             return response()->json(["message" => $validator->errors()->all()], 400);
         }
 
-        $user = AdminFirm::where("id", $id)->update([
+        $updatedUser = User::where("id",$id)->update([
+            "name" => $request->username,
+            "email" => $request->email 
+        ]);
+
+        $adminfirm_id= (integer) $user['adminfirm_id'];
+
+        $firm = AdminFirm::where("id", $adminfirm_id)->update([
             "name" => $request->firm_name,
             "gst_number" => $request->gst_number,
             "address" => $request->address,
@@ -94,9 +103,32 @@ class UserDetailController extends Controller
             "mobile_number" => $request->mobile_number,
             "landline_number" =>  $request->landline_number,
         ]);
+        if($updatedUser==1 && $firm==1)
+        {
+             $user = User::find($id);
+             $id= (integer) $user['adminfirm_id'];
+                
+                $admindetails = AdminFirm::find($id);
+                // dd($admindetails['created_at']->toDateString());
+                 return Response::json(['username'=> $user['name'],
+                                        'email' => $user['email'],
 
-        // return response()->json(["user" => $user]);
+                                        'firm_name' => $admindetails['name'],
+                                        'gst_number' => $admindetails['gst_number'],
+                                        'address' => $admindetails['address'],
+                                        'cityname' => $admindetails['cityname'],
+                                        'state_code' => $admindetails['state_code'],
+                                        'pincode' => $admindetails['pincode'],
+                                        'mobile_number' => $admindetails['mobile_number'],
+                                        'landline_number' => $admindetails['landline_number'],
+                                        'created_date' => $admindetails['created_at']->toDateString(),
+                                        'updated_date' => $admindetails['updated_at']->toDateString(),
 
+                    ]);
+        }
+        else{
+            return response()->json(["message" => "Failed to update record"]);
+        }
     }
 
 }
