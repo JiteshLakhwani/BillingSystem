@@ -12,16 +12,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+//Routes for user login
 Route::post('/login','AuthenticateController@authenticate');
+Route::get('/login','AuthenticateController@login') -> name('login');
 
+//Route for creating customer
 Route::post('/createUser','FirmController@store');
 
+//Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
-
 Route::patch('/userDetails/{id}','UserDetailController@update');
-
-Route::get('/login','AuthenticateController@login') -> name('login');
+Route::delete('/userDetails/{id}','UserDetailController@destroy');
 
 
 // Routes for states 

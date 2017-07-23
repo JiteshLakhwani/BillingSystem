@@ -156,6 +156,8 @@ $state = State::create([
      */
     public function destroy($id)
     {
+        $this->verifyToken();
+
         $state = State::find($id);
          if($state == null)
         {
@@ -165,7 +167,7 @@ $state = State::create([
         $state=State::find($id);
         if($state==null)
         {
-            return response()->json(["message"=>"Record deleted"]);
+            return response()->json(["message"=>"Record deleted successfuly"]);
         }
     }
 

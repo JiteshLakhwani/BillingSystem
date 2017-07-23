@@ -19,7 +19,7 @@ class UserDetailController extends Controller
     // }
     public function show()
     {
-    try {
+        try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 
                 return response()->json(['error' => 'Token Not Available'], 400);
@@ -131,4 +131,33 @@ class UserDetailController extends Controller
         }
     }
 
+        public function destroy($id)
+    {
+         try {
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                
+                return response()->json(['error' => 'Token Not Available'], 400);
+            }
+        }   catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'Token Expired'], 500);
+            }
+            $currentUser=$user['id'];
+            if($currentUser == $id)
+            {
+            return response()->json(["message"=>"cannaot delete logged in user"]);    
+            }
+        $user = User::find($id);
+         if($user == null)
+        {
+            return response()->json(["error"=>"record already deleted"]);
+        }
+        User::destroy($id);
+        $user=User::find($id);
+        if($state==null)
+        {
+            return response()->json(["message"=>"Record deleted successfully"]);
+        }
+    }
+    
 }
