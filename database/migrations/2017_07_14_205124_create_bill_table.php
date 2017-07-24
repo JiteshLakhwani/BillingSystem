@@ -14,10 +14,10 @@ class CreateBillTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->increments('bill_id');
+            $table->increments('id');
             $table->string('invoice_no');
-            $table->integer('customer_id',false);
-            $table->integer('admin_id',false);          
+            $table->integer('firm_id',false);
+            $table->integer('user_id',false);          
             $table->float('discount_percentage');
             $table->float('discount_amount');
             $table->double('taxable_amount');
