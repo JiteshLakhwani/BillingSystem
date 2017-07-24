@@ -28,23 +28,20 @@ class UserDetailController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'Token Expired'], 500);
         }
-                $id= (integer) $user['adminfirm_id'];
-                
-                $admindetails = AdminFirm::find($id);
-                // dd($admindetails['created_at']->toDateString());
-                 return Response::json(['username'=> $user['name'],
+                  return Response::json(['username'=> $user['name'],
                                         'email' => $user['email'],
 
-                                        'firm_name' => $admindetails['name'],
-                                        'gst_number' => $admindetails['gst_number'],
-                                        'address' => $admindetails['address'],
-                                        'cityname' => $admindetails['cityname'],
-                                        'state_code' => $admindetails['state_code'],
-                                        'pincode' => $admindetails['pincode'],
-                                        'mobile_number' => $admindetails['mobile_number'],
-                                        'landline_number' => $admindetails['landline_number'],
-                                        'created_date' => $admindetails['created_at'],
-                                        'updated_date' => $admindetails['updated_at'],
+                                        'firm_name' => $user->adminfirm['name'],
+                                        'gst_number' => $user->adminfirm['gst_number'],
+                                        'address' => $user->adminfirm['address'],
+                                        'cityname' => $user->adminfirm['cityname'],
+                                        'state_code' => $user->adminfirm['state_code'],
+                                        'pincode' => $user->adminfirm['pincode'],
+                                        'mobile_number' => $user->adminfirm['mobile_number'],
+                                        'landline_number' => $user->adminfirm['landline_number'],
+                                        'created_date' => $user->adminfirm['created_at']->toDateString(),
+                                        'updated_date' => $user->adminfirm['updated_at']->toDateString()
+                                        
 
         ]);
     }
@@ -62,17 +59,12 @@ class UserDetailController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'Token Expired'], 500);
             }
-
-        $checkUser=User::find($id);
-        if($checkUser == null)
-        {
-            return response()->json(["error"=>"User couldn't find"]);
-        }
+        
         $validator = Validator::make($request->all(), [
             "username" => 'required|string',
             "email" => 'required|email|max:255',
 
-            "firm_name" => 'required|string',
+            "name" => 'required|string',
             "gst_number" => 'required|min:15|max:15',
             "address" => 'required',
             "city_name" => 'required|string',
@@ -91,10 +83,8 @@ class UserDetailController extends Controller
             "email" => $request->email 
         ]);
 
-        $adminfirm_id= (integer) $user['adminfirm_id'];
-
-        $firm = AdminFirm::where("id", $adminfirm_id)->update([
-            "name" => $request->firm_name,
+        $firm = AdminFirm::where("id", $user->adminfirm['id'])->update([
+            "name" => $request->name,
             "gst_number" => $request->gst_number,
             "address" => $request->address,
             "cityname" => $request->city_name,
@@ -105,24 +95,19 @@ class UserDetailController extends Controller
         ]);
         if($updatedUser==1 && $firm==1)
         {
-             $user = User::find($id);
-             $id= (integer) $user['adminfirm_id'];
-                
-                $admindetails = AdminFirm::find($id);
-                // dd($admindetails['created_at']->toDateString());
-                 return Response::json(['username'=> $user['name'],
+                return Response::json(['username'=> $user['name'],
                                         'email' => $user['email'],
 
-                                        'firm_name' => $admindetails['name'],
-                                        'gst_number' => $admindetails['gst_number'],
-                                        'address' => $admindetails['address'],
-                                        'cityname' => $admindetails['cityname'],
-                                        'state_code' => $admindetails['state_code'],
-                                        'pincode' => $admindetails['pincode'],
-                                        'mobile_number' => $admindetails['mobile_number'],
-                                        'landline_number' => $admindetails['landline_number'],
-                                        'created_date' => $admindetails['created_at']->toDateString(),
-                                        'updated_date' => $admindetails['updated_at']->toDateString(),
+                                        'firm_name' => $user->adminfirm['name'],
+                                        'gst_number' => $user->adminfirm['gst_number'],
+                                        'address' => $user->adminfirm['address'],
+                                        'cityname' => $user->adminfirm['cityname'],
+                                        'state_code' => $user->adminfirm['state_code'],
+                                        'pincode' => $user->adminfirm['pincode'],
+                                        'mobile_number' => $user->adminfirm['mobile_number'],
+                                        'landline_number' => $user->adminfirm['landline_number'],
+                                        'created_date' => $user->adminfirm['created_at']->toDateString(),
+                                        'updated_date' => $user->adminfirm['updated_at']->toDateString()
 
                     ]);
         }

@@ -214,4 +214,10 @@ class FirmController extends Controller
                 return response()->json(['error' => 'Token Expired'], 500);
             }
         }
+
+    public function testing()
+    {
+        $firm = Firm::find(1);
+       dd( $firm->shippingState->state_name);
+    }
 }

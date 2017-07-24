@@ -44,4 +44,9 @@ class User extends Authenticatable
         return $this->belongsTo(AdminFirm::class);
     }
 
+        public function bill()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
 }

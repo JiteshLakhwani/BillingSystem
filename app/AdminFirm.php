@@ -21,6 +21,6 @@ class AdminFirm extends Model
     }
      public function state()
 {
-    return $this->belongsTo(State::class, 'billing_state_code', 'state_code');
+    return $this->belongsTo(State::class, 'state_code', 'state_code');
 }
 }

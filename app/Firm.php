@@ -14,7 +14,7 @@ class Firm extends Model
         ,'shipping_landline_number'
     ];
 
-    public function state()
+    public function billingState()
 {
     return $this->belongsTo(State::class, 'billing_state_code', 'state_code');
 }
@@ -23,4 +23,9 @@ class Firm extends Model
 {
     return $this->belongsTo(State::class, 'shipping_state_code', 'state_code');
 }
+
+    public function bill()
+    {
+        return $this->hasMany(Bill::class);
+    }
 }

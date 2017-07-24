@@ -22,6 +22,9 @@ Route::patch('/updateCustomer/{id}','FirmController@update');
 Route::delete('/deleteCustomer/{id}','FirmController@destroy');
 Route::get('/getCustomer','FirmController@index');
 
+
+Route::get('/testing','FirmController@testing');
+
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
 Route::patch('/userDetails/{id}','UserDetailController@update');
@@ -33,5 +36,13 @@ Route::get('/getStates','StateController@index');
 Route::post('/addState','StateController@store');
 Route::patch('/updateState/{state_code}','StateController@update');
 Route::delete('/deleteState/{state_code}', 'StateController@destroy');
+
+
+//Routes for products
+Route::get('/getProducts','ProductController@index');
+Route::post('/addState','StateController@store');
+Route::patch('/updateState/{state_code}','StateController@update');
+Route::delete('/deleteState/{state_code}', 'StateController@destroy');
+
 
 
