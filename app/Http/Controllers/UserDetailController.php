@@ -69,7 +69,7 @@ class UserDetailController extends Controller
             "address" => 'required',
             "city_name" => 'required|string',
             "state_code" => 'required|integer',
-            "landline_number" => 'integer',
+            "pincode" => 'required|integer'
         ]);
 
         if ($validator->fails()) {
