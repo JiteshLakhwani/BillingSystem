@@ -68,7 +68,7 @@ class UserDetailController extends Controller
             "gst_number" => 'required|min:15|max:15',
             "address" => 'required',
             "city_name" => 'required|string',
-            "state_code" => 'required|string',
+            "state_code" => 'required|integer',
             "pincode" => 'required|integer',
             "mobile_number" => 'integer',
             "landline_number" => 'integer',
