@@ -62,15 +62,13 @@ class UserDetailController extends Controller
         
         $validator = Validator::make($request->all(), [
             "username" => 'required|string',
-            "email" => 'required|email|max:255',
+            "email" => 'required|email|max:255|unique:users',
 
             "name" => 'required|string',
             "gst_number" => 'required|min:15|max:15',
             "address" => 'required',
             "city_name" => 'required|string',
             "state_code" => 'required|integer',
-            "pincode" => 'required|integer',
-            "mobile_number" => 'integer',
             "landline_number" => 'integer',
         ]);
 
@@ -95,6 +93,7 @@ class UserDetailController extends Controller
         ]);
         if($updatedUser==1 && $firm==1)
         {
+                $user=User::find($id);
                 return Response::json(['username'=> $user['name'],
                                         'email' => $user['email'],
 
