@@ -43,8 +43,8 @@ class UserDetailController extends Controller
                                         'pincode' => $admindetails['pincode'],
                                         'mobile_number' => $admindetails['mobile_number'],
                                         'landline_number' => $admindetails['landline_number'],
-                                        'created_date' => $admindetails['created_at']->toDateString(),
-                                        'updated_date' => $admindetails['updated_at']->toDateString(),
+                                        'created_date' => $admindetails['created_at'],
+                                        'updated_date' => $admindetails['updated_at'],
 
         ]);
     }
