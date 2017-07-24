@@ -53,11 +53,11 @@ class FirmController extends Controller
             "gst_number" => 'required',
             "bill_address" => 'required',
             "bill_city" => 'required|string',
-            "bill_state_code" => 'required|string',
+            "bill_state_code" => 'required|integer',
             "bill_pincode" => 'required|integer',
             "ship_address" => 'required',
             "ship_city" => 'required|string',
-            "ship_state_code" => 'required|string',
+            "ship_state_code" => 'required|integer',
             "ship_pincode" => 'required|integer',
         ]);
 
