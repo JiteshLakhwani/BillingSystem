@@ -126,7 +126,7 @@ class FirmController extends Controller
             "name" => 'required|string|max:191',
             "person_name" => 'required|string|max:191',
             "gst_number" => 'required|min:15|max:15',
-            "email" => 'required|email|max:191|unique:firms',
+            "email" => 'required|email|max:191',
             "bill_address" => 'required|max:191',
             "bill_cityname" => 'required|string|max:191',
             "bill_state_code" => 'required|integer',
