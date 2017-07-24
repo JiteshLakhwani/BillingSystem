@@ -11,6 +11,7 @@ use \Validator;
 use App\User;
 use State;
 
+
 class UserDetailController extends Controller
 {
     //     public function __construct()
