@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 Route::post('/login','AuthenticateController@authenticate');
 Route::get('/login','AuthenticateController@login') -> name('login');
 
-//Route for creating customer
+//Route for customer
 Route::post('/createCustomer','FirmController@store');
 Route::patch('/updateCustomer/{id}','FirmController@update');
 Route::delete('/deleteCustomer/{id}','FirmController@destroy');
-
+Route::get('/getCustomer','FirmController@index');
 
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');

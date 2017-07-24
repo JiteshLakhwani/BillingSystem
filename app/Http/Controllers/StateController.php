@@ -17,15 +17,7 @@ use \Validator;
         */
         public function index()
         {
-            try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Token Not Available'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
+            $this->verifyToken();
 
             $states = state::get();
             if($states->count() == 0 )

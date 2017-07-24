@@ -17,7 +17,19 @@ class FirmController extends Controller
      */
     public function index()
     {
-        //
+            $firms = Firm::get();
+            if($firms->count() == 0 )
+            {
+                return response()->json(["error" => "No data in found"]);
+            }
+            // foreach($firms as $firm)
+            // {
+            //     $response ['firms'][]= ['state_code' =>$state->state_code,
+            //                 'state_name' =>$state->state_name
+            //     ];
+            // }
+            return response()->json(["Firms"=>$firms],200);
+
     }
 
     /**
