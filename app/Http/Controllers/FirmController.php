@@ -55,14 +55,10 @@ class FirmController extends Controller
             "bill_city" => 'required|string',
             "bill_state_code" => 'required|string',
             "bill_pincode" => 'required|integer',
-            "bill_mobile_number" => 'integer',
-            "bill_landline_number" => 'integer',
             "ship_address" => 'required',
             "ship_city" => 'required|string',
             "ship_state_code" => 'required|string',
             "ship_pincode" => 'required|integer',
-            "ship_mobile_number" => 'integer',
-            "ship_landline_number" => 'integer'
         ]);
 
         if ($validator->fails()) {
@@ -130,19 +126,15 @@ class FirmController extends Controller
             "name" => 'required|string|max:191',
             "person_name" => 'required|string|max:191',
             "gst_number" => 'required|min:15|max:15',
-            "email" => 'required|email|max:191',
+            "email" => 'required|email|max:191|unique:firms',
             "bill_address" => 'required|max:191',
             "bill_cityname" => 'required|string|max:191',
             "bill_state_code" => 'required|integer',
             "bill_pincode" => 'required|integer',
-            "bill_mobile_number" => 'integer',
-            "bill_landline_number" => 'integer',
             "ship_address" => 'required|max:191',
             "ship_cityname" => 'required|string|max:191',
             "ship_state_code" => 'required|integer',
             "ship_pincode" => 'required|integer',
-            "ship_mobile_number" => 'integer',
-            "ship_landline_number" => 'integer',
         ]);
 
         if ($validator->fails()) {
