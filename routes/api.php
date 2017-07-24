@@ -40,9 +40,9 @@ Route::delete('/deleteState/{state_code}', 'StateController@destroy');
 
 //Routes for products
 Route::get('/getProducts','ProductController@index');
-Route::post('/addState','StateController@store');
-Route::patch('/updateState/{state_code}','StateController@update');
-Route::delete('/deleteState/{state_code}', 'StateController@destroy');
+Route::post('/addProduct','ProductController@store');
+Route::patch('/updateProduct/{id}','ProductController@update');
+Route::delete('/deleteProduct/{id}', 'ProductController@destroy');
 
 
 

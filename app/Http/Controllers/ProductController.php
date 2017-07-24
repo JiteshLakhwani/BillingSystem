@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use \Response;
+use \Validator;
 
 class ProductController extends Controller
 {
@@ -14,6 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+            $this->verifyToken();
             $products = Product::get();
             if($products->count() == 0 )
             {
@@ -47,7 +52,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $this->verifyToken();
+
+            $validator = Validator::make($request->all(), [
+
+                "product_name"=> 'required',
+                "hsn_code"=> 'required|string',
+                "product_price" => 'required|integer'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(["message" => $validator->errors()->all()], 400);
+            }
+                $product = Product::create([
+                "product_name" => $request->product_name,
+                "hsn_code" => $request->hsn_code,
+                "product_price" => $request->product_price
+            ]);
+
+            return response()->json(["product_name" => $product->product_name,
+                                     "hsn_code" => $product->hsn_code,
+                                     "product_price" => $product->product_price]);
     }
 
     /**
@@ -81,7 +106,38 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+               $this->verifyToken();
+
+            $validator = Validator::make($request->all(), [
+
+                "product_name"=> 'required',
+                "hsn_code"=> 'required|string',
+                "product_price" => 'required|integer'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(["message" => $validator->errors()->all()], 400);
+            }
+
+    
+                $product = Product::where("id", $id)->update([
+                    "product_name" => $request->product_name,
+                     "hsn_code" => $request->hsn_code,
+                     "product_price" => $request->product_price
+            ]);
+
+            if($product==1)
+            {
+                $updatedProduct = Product::find($id);
+                return response()->json(["product_name" => $updatedProduct->product_name,
+                                     "hsn_code" => $updatedProduct->hsn_code,
+                                     "product_price" => $updatedProduct->product_price]);
+            }
+            else
+            {
+                return response()->json(["message"=>"Couldn't update the data"]);
+            }
+            
     }
 
     /**
@@ -92,7 +148,19 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+             $this->verifyToken();
+
+            $product = Product::find($id);
+            if($product == null)
+            {
+                return response()->json(["error"=>"Couldn't find record"]);
+            }
+            Product::destroy($id);
+            $product=Product::find($id);
+            if($product==null)
+            {
+                return response()->json(["message"=>"Record deleted successfuly"]);
+            }
     }
 
      public function verifyToken()
