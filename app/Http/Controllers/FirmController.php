@@ -85,9 +85,27 @@ class FirmController extends Controller
             "shipping_landline_number" =>  $request->shipping_landline_number,
         ]);
 
-        return response()->json($user);
+        return response()->json(["name" => $user['name'],
+                                "person_name" =>$user['person_name'],
+                                "gst_number" =>$user['gst_number'],
+                                "email" =>$user['email'],
+                                "billing_address" =>$user['billing_address'],
+                                "billing_state_name" => $user->billingState['state_name'],
+                                "billing_state_code" => $user['state_code'],
+                                "billing_city" =>$user['billing_city'],
+                                "billing_pincode" =>$user['billing_pincode'],
+                                "billing_mobile_number" =>$user['billing_mobile_number'],
+                                "billing_mobile_number" =>$user['billing_landline_number'],
 
+                                "shipping_address" =>$user['shipping_address'],
+                                "shipping_state_name" => $user->shippingState['state_name'],
+                                "shipping_state_code" => $user['shipping_state_code'],
+                                "shipping_city" =>$user['shipping_city'],
+                                "shipping_pincode" =>$user['shipping_pincode'],
+                                "shipping_mobile_number" =>$user['shipping_mobile_number'],
+                                "shipping_mobile_number" =>$user['shipping_landline_number']],200);
     }
+
 
     /**
      * Display the specified resource.
