@@ -68,7 +68,7 @@ class UserDetailController extends Controller
             "name" => 'required|string',
             "gst_number" => 'required|min:15|max:15',
             "address" => 'required',
-            "city_name" => 'required|string',
+            "cityname" => 'required|string',
             "state_code" => 'required|integer',
             "pincode" => 'required|integer'
         ]);
@@ -86,7 +86,7 @@ class UserDetailController extends Controller
             "name" => $request->name,
             "gst_number" => $request->gst_number,
             "address" => $request->address,
-            "cityname" => $request->city_name,
+            "cityname" => $request->cityname,
             "state_code" => $request->state_code,
             "pincode" => $request->pincode,
             "mobile_number" => $request->mobile_number,
