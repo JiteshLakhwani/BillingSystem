@@ -23,7 +23,7 @@ Route::delete('/deleteCustomer/{id}','FirmController@destroy');
 Route::get('/getCustomer','FirmController@index');
 
 
-Route::get('/testing','FirmController@testing');
+Route::post('/testing','BillController@store');
 
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
