@@ -26,7 +26,8 @@ class ProductController extends Controller
             }
             foreach($products as $product)
             {
-                $response ['products'][]= ['product_name' =>$product->product_name,
+                $response ['products'][]= ['id' => $product->id,
+                            'product_name' =>$product->product_name,
                             'hsn_code' =>$product->hsn_code,
                             'product_price'=>$product->product_price
                 ];
@@ -70,7 +71,8 @@ class ProductController extends Controller
                 "product_price" => $request->product_price
             ]);
 
-            return response()->json(["product_name" => $product->product_name,
+            return response()->json(["id" => $product->id,
+                                     "product_name" => $product->product_name,
                                      "hsn_code" => $product->hsn_code,
                                      "product_price" => $product->product_price]);
     }
@@ -129,9 +131,10 @@ class ProductController extends Controller
             if($product==1)
             {
                 $updatedProduct = Product::find($id);
-                return response()->json(["product_name" => $updatedProduct->product_name,
-                                     "hsn_code" => $updatedProduct->hsn_code,
-                                     "product_price" => $updatedProduct->product_price]);
+                return response()->json(["id" => $updatedProduct->id,
+                                        "product_name" => $updatedProduct->product_name,
+                                        "hsn_code" => $updatedProduct->hsn_code,
+                                        "product_price" => $updatedProduct->product_price]);
             }
             else
             {
