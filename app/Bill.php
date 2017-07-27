@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
+    protected $fillable = ['firm_id', 'user_id', 'discount_percentage', 'discount_amount', 'sgst_percentage', 
+    'sgst_amount','cgst_precentage', 'cgst_amount','igst_percentage', 'igst_amount','taxable_amount',
+    'total_payable_amount'];
     public function firm()
     {
         return $this->belongsTo(Firm::class);

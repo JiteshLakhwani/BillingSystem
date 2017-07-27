@@ -115,7 +115,9 @@ class FirmController extends Controller
      */
     public function show($id)
     {
-        //
+        $firm = Firm::find($id);
+
+        return response()->json($firm);
     }
 
     /**

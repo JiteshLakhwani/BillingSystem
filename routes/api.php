@@ -21,6 +21,7 @@ Route::post('/createCustomer','FirmController@store');
 Route::patch('/updateCustomer/{id}','FirmController@update');
 Route::delete('/deleteCustomer/{id}','FirmController@destroy');
 Route::get('/getCustomer','FirmController@index');
+Route::get('/showCustomer/{id}','FirmController@show');
 
 
 Route::post('/testing','BillController@store');
