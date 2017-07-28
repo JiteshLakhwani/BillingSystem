@@ -72,6 +72,7 @@ class BillController extends Controller
             BillDetail::create([
                  "product_id" => $request->bill_detail[$i]['product_id'],
                  "quantity" =>  $request->bill_detail[$i]['quantity'],
+                 "price" => $request->bill_detail[$i]['price'],
                  "bill_id" => $bill['id']
             ]);
 }
