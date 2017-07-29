@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
-    protected $fillable = ['firm_id', 'user_id', 'sgst_percentage', 
+    protected $fillable = ['firm_id', 'user_id', 'sgst_percentage', 'invoice_no',
     'sgst_amount','cgst_precentage', 'cgst_amount','igst_percentage', 'igst_amount','taxable_amount',
     'total_payable_amount'];
     public function firm()

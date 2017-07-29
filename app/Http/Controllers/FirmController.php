@@ -240,6 +240,7 @@ class FirmController extends Controller
             {
                 $response ['firms'][]= ['id' => $firm->id,
                             'firm_name' =>$firm->name,
+                            'state_code'=>$firm->billing_state_code
                 ];
             }
             return response()->json($response,200);

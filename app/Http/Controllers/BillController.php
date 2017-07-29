@@ -44,6 +44,7 @@ class BillController extends Controller
                                 "username" => $bill->user['name'],
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
+                                "invoice_no" => $bill['invoice_no'],
                                 "taxable_amount" => $bill['taxable_amount'],
                                 "sgst_percentage" => $bill['sgst_percentage'],
                                 "sgst_amount" => $bill['sgst_amount'],
@@ -94,6 +95,7 @@ class BillController extends Controller
         $bill = Bill::create([
             "user_id" => $request->user_id,
             "firm_id" => $request->firm_id,
+            "invoice_no" => $request->invoice_no,
             "taxable_amount" => $request->taxable_amount,           
             "sgst_percentage" => $request->sgst_percentage,
             "sgst_amount" => $request->sgst_amount,
@@ -134,6 +136,7 @@ $return_billdetail[] = array(
 }
         return response()->json(["user_id" => $bill['user_id'],
                                 "username" => $bill->user['name'],
+                                "invoice_no" => $bill['invoice_no'],
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
                                 "taxable_amount" => $bill['taxable_amount'],
