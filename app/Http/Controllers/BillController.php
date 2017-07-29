@@ -33,7 +33,9 @@ class BillController extends Controller
             $return_billdetail[] = array(
                 'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
                 'product_name' => $bill->billdetail[$i]->product['product_name'],
-                'price' => $bill->billdetail[$i]['price']
+                'price' => $bill->billdetail[$i]['price'],
+                'discount_percentage' => $bill->billdetail[$i]['discount_percentage'],
+                'discount_amount' => $bill->billdetail[$i]['discount_amount']
     );
     }
             $return_bill [] = array(
@@ -42,8 +44,6 @@ class BillController extends Controller
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
                                 "taxable_amount" => $bill['taxable_amount'],
-                                "discount_percentage" => $bill['discount_percentage'],
-                                "discount_amount" => $bill['discount_amount'],
                                 "sgst_percentage" => $bill['sgst_percentage'],
                                 "sgst_amount" => $bill['sgst_amount'],
                                 "cgst_percentage" => $bill['cgst_percentage'],
@@ -93,9 +93,7 @@ class BillController extends Controller
         $bill = Bill::create([
             "user_id" => $request->user_id,
             "firm_id" => $request->firm_id,
-            "taxable_amount" => $request->taxable_amount,
-            "discount_percentage" => $request->discount_percentage,
-            "discount_amount" => $request->discount_amount,            
+            "taxable_amount" => $request->taxable_amount,           
             "sgst_percentage" => $request->sgst_percentage,
             "sgst_amount" => $request->sgst_amount,
             "cgst_percentage" => $request->cgst_percentage,
@@ -112,7 +110,10 @@ class BillController extends Controller
                  "product_id" => $request->bill_detail[$i]['product_id'],
                  "quantity" =>  $request->bill_detail[$i]['quantity'],
                  "price" => $request->bill_detail[$i]['price'],
-                 "bill_id" => $bill['id']
+                 "bill_id" => $bill['id'],
+                 'discount_percentage' => $request->bill_detail[$i]['discount_percentage'],
+                 'discount_amount' => $request->bill_detail[$i]['discount_amount']
+
             ]);
 }
 
@@ -123,7 +124,10 @@ for ($i = 0; $i < $length; $i++) {
 $return_billdetail[] = array(
         'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
         'product_name' => $bill->billdetail[$i]->product['product_name'],
-        'price' => $bill->billdetail[$i]['price']
+        'price' => $bill->billdetail[$i]['price'],
+        'discount_percentage' => $bill->billdetail[$i]['discount_percentage'],
+        'discount_amount' => $bill->billdetail[$i]['discount_amount']
+
     );
 }
         return response()->json(["user_id" => $bill['user_id'],
@@ -131,8 +135,6 @@ $return_billdetail[] = array(
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
                                 "taxable_amount" => $bill['taxable_amount'],
-                                "discount_percentage" => $bill['discount_percentage'],
-                                "discount_amount" => $bill['discount_amount'],
                                 "sgst_percentage" => $bill['sgst_percentage'],
                                 "sgst_amount" => $bill['sgst_amount'],
                                 "cgst_percentage" => $bill['cgst_percentage'],
