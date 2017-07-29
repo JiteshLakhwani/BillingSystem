@@ -35,7 +35,8 @@ class BillController extends Controller
                 'product_name' => $bill->billdetail[$i]->product['product_name'],
                 'price' => $bill->billdetail[$i]['price'],
                 'discount_percentage' => $bill->billdetail[$i]['discount_percentage'],
-                'discount_amount' => $bill->billdetail[$i]['discount_amount']
+                'discount_amount' => $bill->billdetail[$i]['discount_amount'],
+                'size' => $bill->billdetail[$i]['size']
     );
     }
             $return_bill [] = array(
@@ -102,17 +103,17 @@ class BillController extends Controller
             "igst_amount" => $request->sgst_amount,
             "total_payable_amount" => $request->total_payable_amount
         ]);
-
+print $request->bill_detail[1]['size'];
         $length = count($request->bill_detail);
-
         for ($i = 0; $i < $length; $i++) {
             BillDetail::create([
                  "product_id" => $request->bill_detail[$i]['product_id'],
                  "quantity" =>  $request->bill_detail[$i]['quantity'],
                  "price" => $request->bill_detail[$i]['price'],
                  "bill_id" => $bill['id'],
-                 'discount_percentage' => $request->bill_detail[$i]['discount_percentage'],
-                 'discount_amount' => $request->bill_detail[$i]['discount_amount']
+                 "discount_percentage" => $request->bill_detail[$i]['discount_percentage'],
+                 "discount_amount" => $request->bill_detail[$i]['discount_amount'],
+                 "size" => "M",
 
             ]);
 }
@@ -126,7 +127,8 @@ $return_billdetail[] = array(
         'product_name' => $bill->billdetail[$i]->product['product_name'],
         'price' => $bill->billdetail[$i]['price'],
         'discount_percentage' => $bill->billdetail[$i]['discount_percentage'],
-        'discount_amount' => $bill->billdetail[$i]['discount_amount']
+        'discount_amount' => $bill->billdetail[$i]['discount_amount'],
+        'size' => $bill->billdetail[$i]['size']
 
     );
 }
