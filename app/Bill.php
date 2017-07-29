@@ -23,4 +23,16 @@ class Bill extends Model
     {
         return $this->hasMany(BillDetail::class);
     }
+
+    public function delete()
+    {
+        // delete all related photos 
+        $this->billdetail()->delete();
+        // as suggested by Dirk in comment,
+        // it's an uglier alternative, but faster
+        // Photo::where("user_id", $this->id)->delete()
+
+        // delete the user
+        return parent::delete();
+    }
 }

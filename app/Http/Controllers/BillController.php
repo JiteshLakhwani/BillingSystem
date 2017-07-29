@@ -188,7 +188,19 @@ $return_billdetail[] = array(
      */
     public function destroy($id)
     {
-        //
+     $this->verifyToken();
+
+            $bill = Bill::find($id);
+            if($bill == null)
+            {
+                return response()->json(["error"=>"Couldn't find record"]);
+            }
+            $bill->delete();
+            $bill = Bill::find($id);
+            if($bill==null)
+            {
+                return response()->json(["message"=>"Record deleted successfuly"]);
+            }
     }
 
         public function verifyToken()

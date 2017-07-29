@@ -24,6 +24,8 @@ Route::get('/getCustomer','FirmController@index');
 Route::get('/showCustomer/{id}','FirmController@show');
 Route::get('/listCustomer','FirmController@lists');
 
+Route::delete('/testing/{id}','BillController@destroy');
+
 
 Route::get('/getBill','BillController@index');
 Route::post('/createBill','BillController@store');
