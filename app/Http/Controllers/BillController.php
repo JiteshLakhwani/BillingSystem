@@ -88,6 +88,7 @@ $return_billdetail[] = array(
     );
 }
         return response()->json(["user_id" => $bill['user_id'],
+                                "username" => $bill->user['name'],
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
                                 "taxable_amount" => $bill['taxable_amount'],
