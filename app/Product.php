@@ -8,7 +8,7 @@ class Product extends Model
 {
      protected $fillable = ['product_name','hsn_code','product_price'];
 
-    public function billDetails()
+    public function billdetail()
     {
         return $this->hasMany(BillDetail::class);
     }

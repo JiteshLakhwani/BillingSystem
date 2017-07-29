@@ -76,10 +76,31 @@ class BillController extends Controller
                  "bill_id" => $bill['id']
             ]);
 }
-        return response()->json($bill);
-        // dd($request->b_d[0]['name']);
-    }
 
+//this will loop through bill detail and will return bill detail array 
+
+$return_billdetail = array();
+for ($i = 0; $i < $length; $i++) {
+$return_billdetail[] = array(
+        'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
+        'product_name' => $bill->billdetail[$i]->product['product_name'],
+        'price' => $bill->billdetail[$i]['price']
+    );
+}
+        return response()->json(["user_id" => $bill['user_id'],
+                                "firm_id" => $bill['firm_id'],
+                                "taxable_amount" => $bill['taxable_amount'],
+                                "sgst_percentage" => $bill['sgst_percentage'],
+                                "sgst_amount" => $bill['sgst_amount'],
+                                "cgst_percentage" => $bill['cgst_percentage'],
+                                "cgst_amount" => $bill['cgst_amount'],
+                                "igst_percentage" => $bill['igst_percentage'],
+                                "igst_amount" => $bill['igst_amount'],
+                                "total_payable_amount" => $bill['total_payable_amount'],
+                                "product_detail" => $return_billdetail
+        ]);
+
+    }
     /**
      * Display the specified resource.
      *
