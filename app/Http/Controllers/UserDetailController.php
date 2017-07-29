@@ -40,8 +40,8 @@ class UserDetailController extends Controller
                                         'pincode' => $user->adminfirm['pincode'],
                                         'mobile_number' => $user->adminfirm['mobile_number'],
                                         'landline_number' => $user->adminfirm['landline_number'],
-                                        'created_date' => $user->adminfirm['created_at']->toDateString(),
-                                        'updated_date' => $user->adminfirm['updated_at']->toDateString()
+                                        'created_date' => $user->adminfirm['created_at'],
+                                        'updated_date' => $user->adminfirm['updated_at']
                                         
 
         ]);
@@ -106,8 +106,8 @@ class UserDetailController extends Controller
                                         'pincode' => $user->adminfirm['pincode'],
                                         'mobile_number' => $user->adminfirm['mobile_number'],
                                         'landline_number' => $user->adminfirm['landline_number'],
-                                        'created_date' => $user->adminfirm['created_at']->toDateString(),
-                                        'updated_date' => $user->adminfirm['updated_at']->toDateString()
+                                        'created_date' => $user->adminfirm['created_at'],
+                                        'updated_date' => $user->adminfirm['updated_at']
 
                     ]);
         }
