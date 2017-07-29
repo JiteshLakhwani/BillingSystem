@@ -18,8 +18,6 @@ class CreateBillTable extends Migration
             $table->string('invoice_no');
             $table->integer('firm_id',false);
             $table->integer('user_id',false);          
-            $table->float('discount_percentage')->default(0);
-            $table->float('discount_amount')->default(0);
             $table->double('taxable_amount');
             $table->float('sgst_percentage')->default(0);
             $table->float('sgst_amount')->default(0);
