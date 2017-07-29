@@ -232,4 +232,16 @@ class FirmController extends Controller
         $firm = Firm::find(1);
        dd( $firm->shippingState->state_name);
     }
+     
+       public function lists()
+    {
+        $firms = Firm::get();
+       foreach($firms as $firm)
+            {
+                $response ['firms'][]= ['id' => $firm->id,
+                            'product_name' =>$firm->name,
+                ];
+            }
+            return response()->json($response,200);
+    }
 }

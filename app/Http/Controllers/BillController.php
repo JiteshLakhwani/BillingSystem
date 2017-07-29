@@ -19,7 +19,41 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+    $bills = Bill::get();
+    
+
+
+        $return_bill = array();
+        foreach ($bills as $bill)
+        {
+            $length = count($bill->bill_detail);
+            $return_billdetail = array();
+            for ($i = 0; $i < $length; $i++) {
+            $return_billdetail[] = array(
+                'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
+                'product_name' => $bill->billdetail[$i]->product['product_name'],
+                'price' => $bill->billdetail[$i]['price']
+    );
+    }
+            $return_bill [] = array(
+                                "user_id" => $bill['user_id'],
+                                "username" => $bill->user['name'],
+                                "firm_id" => $bill['firm_id'],
+                                "firm_name" => $bill->firm['name'],
+                                "taxable_amount" => $bill['taxable_amount'],
+                                "sgst_percentage" => $bill['sgst_percentage'],
+                                "sgst_amount" => $bill['sgst_amount'],
+                                "cgst_percentage" => $bill['cgst_percentage'],
+                                "cgst_amount" => $bill['cgst_amount'],
+                                "igst_percentage" => $bill['igst_percentage'],
+                                "igst_amount" => $bill['igst_amount'],
+                                "total_payable_amount" => $bill['total_payable_amount'],
+                                "billdetail" => $bill->$return_billdetail
+                
+            );        }
+        return response()->json($return_bill);
+
+        
     }
 
     /**

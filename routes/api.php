@@ -22,9 +22,12 @@ Route::patch('/updateCustomer/{id}','FirmController@update');
 Route::delete('/deleteCustomer/{id}','FirmController@destroy');
 Route::get('/getCustomer','FirmController@index');
 Route::get('/showCustomer/{id}','FirmController@show');
+Route::get('/listCustomer','FirmController@lists');
 
 
-Route::post('/testing','BillController@store');
+Route::get('/testing','BillController@index');
+
+Route::post('/createBill','BillController@store');
 
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
