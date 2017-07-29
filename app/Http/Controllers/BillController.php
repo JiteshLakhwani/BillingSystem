@@ -20,14 +20,15 @@ class BillController extends Controller
     public function index()
     {
     $bills = Bill::get();
-    
 
-
+        $this->verifyToken();
         $return_bill = array();
         foreach ($bills as $bill)
         {
-            $length = count($bill->bill_detail);
+            
+            $length = count($bill->billdetail);
             $return_billdetail = array();
+            
             for ($i = 0; $i < $length; $i++) {
             $return_billdetail[] = array(
                 'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
@@ -48,7 +49,7 @@ class BillController extends Controller
                                 "igst_percentage" => $bill['igst_percentage'],
                                 "igst_amount" => $bill['igst_amount'],
                                 "total_payable_amount" => $bill['total_payable_amount'],
-                                "billdetail" => $bill->$return_billdetail
+                                "billdetail" => $return_billdetail
                 
             );        }
         return response()->json($return_bill);

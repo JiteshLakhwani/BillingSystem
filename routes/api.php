@@ -25,8 +25,7 @@ Route::get('/showCustomer/{id}','FirmController@show');
 Route::get('/listCustomer','FirmController@lists');
 
 
-Route::get('/testing','BillController@index');
-
+Route::get('/getBill','BillController@index');
 Route::post('/createBill','BillController@store');
 
 //Routes for users OR admin related details 
