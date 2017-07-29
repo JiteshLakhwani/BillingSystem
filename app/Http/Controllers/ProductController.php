@@ -22,7 +22,7 @@ class ProductController extends Controller
             $products = Product::get();
             if($products->count() == 0 )
             {
-                return response()->json(["error" => "No data available"]);
+                return response()->json(["message" => "No data found"]);
             }
             foreach($products as $product)
             {

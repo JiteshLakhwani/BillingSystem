@@ -22,7 +22,7 @@ use \Validator;
             $states = state::get();
             if($states->count() == 0 )
             {
-                return response()->json(["error" => "No data in table"]);
+                return response()->json(["message" => "No data found"]);
             }
             foreach($states as $state)
             {
