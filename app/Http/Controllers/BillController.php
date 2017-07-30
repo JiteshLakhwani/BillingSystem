@@ -56,6 +56,7 @@ class BillController extends Controller
     );
     }
             $return_bill [] = array(
+                                "id" => $bill['id'],
                                 "user_id" => $bill['user_id'],
                                 "username" => $bill->user['name'],
                                 "firm_id" => $bill['firm_id'],
