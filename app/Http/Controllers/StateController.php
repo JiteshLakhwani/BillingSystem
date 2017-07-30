@@ -17,7 +17,15 @@ use \Validator;
         */
         public function index()
         {
-            $this->verifyToken();
+           try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
 
             $states = state::get();
             if($states->count() == 0 )
@@ -51,7 +59,15 @@ use \Validator;
         */
         public function store(Request $request)
         {
-                $this->verifyToken();
+                try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
 
             $validator = Validator::make($request->all(), [
 
@@ -103,7 +119,17 @@ use \Validator;
         */
         public function update(Request $request, $id)
         {
-            $this->verifyToken();
+            try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
+
+
             $state = State::find($id);
             if($state == null)
             {
@@ -147,7 +173,15 @@ use \Validator;
         */
         public function destroy($id)
         {
-            $this->verifyToken();
+            try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
 
             $state = State::find($id);
             if($state == null)
@@ -160,19 +194,5 @@ use \Validator;
             {
                 return response()->json(["message"=>"Record deleted successfuly"]);
             }
-        }
-
-        public function verifyToken()
-        {
-                try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Token Not Available'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
         }
     }

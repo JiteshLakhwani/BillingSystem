@@ -29,6 +29,8 @@ Route::delete('/deleteBill/{id}','BillController@destroy');
 Route::get('/getBill','BillController@index');
 Route::post('/createBill','BillController@store');
 
+Route::get('/testing', 'BillController@verifyToken');
+
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
 Route::patch('/userDetails/{id}','UserDetailController@update');

@@ -17,6 +17,16 @@ class FirmController extends Controller
      */
     public function index()
     {
+        try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
+
             $firms = Firm::get();
             if($firms->count() == 0 )
             {
@@ -44,7 +54,15 @@ class FirmController extends Controller
      */
     public function store(Request $request)
     {
-        $this->verifyToken();
+        try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
 
         $validator = Validator::make($request->all(), [
             "name" => 'required|string',
@@ -115,6 +133,16 @@ class FirmController extends Controller
      */
     public function show($id)
     {
+        try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
+
         $firm = Firm::find($id);
 
         return response()->json($firm);
@@ -140,7 +168,15 @@ class FirmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->verifyToken();
+        try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
 
             $validator = Validator::make($request->all(), [
             "name" => 'required|string|max:191',
@@ -199,7 +235,15 @@ class FirmController extends Controller
      */
     public function destroy($id)
     {
-            $this->verifyToken();
+            try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
 
             $firm = Firm::find($id);
             if($firm == null)
@@ -213,10 +257,10 @@ class FirmController extends Controller
                 return response()->json(["message"=>"Record deleted successfuly"]);
             }
     }
-
-    public function verifyToken()
+     
+       public function lists()
     {
-            try {
+        try {
                 if (! $user = JWTAuth::parseToken()->authenticate()) {
                     
                     return response()->json(['error' => 'Please verify your token'], 400);
@@ -225,16 +269,7 @@ class FirmController extends Controller
                 // something went wrong whilst attempting to encode the token
                 return response()->json(['error' => 'Token Expired'], 500);
             }
-        }
 
-    public function testing()
-    {
-        $firm = Firm::find(1);
-       dd( $firm->shippingState->state_name);
-    }
-     
-       public function lists()
-    {
         $firms = Firm::get();
        foreach($firms as $firm)
             {
