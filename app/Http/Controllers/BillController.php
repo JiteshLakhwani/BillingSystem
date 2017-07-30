@@ -32,6 +32,12 @@ class BillController extends Controller
 
 
         $bills = Bill::get();
+
+        if($bills->count() == 0 )
+            {
+                return response()->json(["message" => "No data found"]);
+            }
+
         $return_bill = array();
         foreach ($bills as $bill)
         {

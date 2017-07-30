@@ -144,7 +144,10 @@ class FirmController extends Controller
             }
 
         $firm = Firm::find($id);
-
+            if($firm->count() == 0 )
+            {
+                return response()->json(["message" => "No data found"]);
+            }
         return response()->json($firm);
     }
 
