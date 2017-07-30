@@ -31,7 +31,7 @@ class BillController extends Controller
             }
 
 
-        $bills = Bill::get();
+        $bills = Bill::latest()->get();
 
         if($bills->count() == 0 )
             {
