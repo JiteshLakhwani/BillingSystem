@@ -69,6 +69,7 @@ class BillController extends Controller
                                 "igst_percentage" => $bill['igst_percentage'],
                                 "igst_amount" => $bill['igst_amount'],
                                 "total_payable_amount" => $bill['total_payable_amount'],
+                                "created_at" => $bill['created_at'],
                                 "billdetail" => $return_billdetail
                 
             );        }
