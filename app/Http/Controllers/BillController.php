@@ -120,11 +120,10 @@ class BillController extends Controller
             "cgst_percentage" => $request->cgst_percentage,
             "cgst_amount" => $request->cgst_amount,
             "igst_percentage" => $request->igst_percentage,
-            "igst_amount" => $request->sgst_amount,
+            "igst_amount" => $request->igst_amount,
             "total_payable_amount" => $request->total_payable_amount,
             "created_at" => $request->created_at
         ]);
-print $request->bill_detail[1]['size'];
         $length = count($request->bill_detail);
         for ($i = 0; $i < $length; $i++) {
             BillDetail::create([

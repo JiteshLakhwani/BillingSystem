@@ -21,7 +21,7 @@ class CreateBillTable extends Migration
             $table->double('taxable_amount');
             $table->float('sgst_percentage')->default(0);
             $table->float('sgst_amount')->default(0);
-            $table->float('cgst_precentage')->default(0);
+            $table->float('cgst_percentage')->default(0);
             $table->float('cgst_amount')->default(0);
             $table->float('igst_percentage')->default(0);
             $table->float('igst_amount')->default(0);
