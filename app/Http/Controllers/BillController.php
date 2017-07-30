@@ -121,7 +121,8 @@ class BillController extends Controller
             "cgst_amount" => $request->cgst_amount,
             "igst_percentage" => $request->igst_percentage,
             "igst_amount" => $request->sgst_amount,
-            "total_payable_amount" => $request->total_payable_amount
+            "total_payable_amount" => $request->total_payable_amount,
+            "created_at" => $request->created_at
         ]);
 print $request->bill_detail[1]['size'];
         $length = count($request->bill_detail);
@@ -165,6 +166,7 @@ $return_billdetail[] = array(
                                 "igst_percentage" => $bill['igst_percentage'],
                                 "igst_amount" => $bill['igst_amount'],
                                 "total_payable_amount" => $bill['total_payable_amount'],
+                                "created_at" => $bill['created_at'],
                                 "product_detail" => $return_billdetail
         ]);
 
