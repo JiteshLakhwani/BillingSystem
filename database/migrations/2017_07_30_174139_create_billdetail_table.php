@@ -18,7 +18,7 @@ class CreateBilldetailTable extends Migration
             $table->integer('quantity');
             $table->integer('bill_id');
             $table->integer('product_id');
-            $table->integer('price');
+            $table->float('price')->default(0);
             $table->string('size');
             $table->float('discount_percentage')->nullable()->default(0);
             $table->float('discount_amount')->nullable()->default(0);

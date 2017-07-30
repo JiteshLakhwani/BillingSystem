@@ -18,14 +18,14 @@ class CreateBillTable extends Migration
             $table->string('invoice_no')->nullable();
             $table->integer('firm_id',false);
             $table->integer('user_id',false);          
-            $table->double('taxable_amount');
+            $table->double('taxable_amount',15)->default(0);
             $table->float('sgst_percentage')->default(0);
             $table->float('sgst_amount')->default(0);
             $table->float('cgst_percentage')->default(0);
             $table->float('cgst_amount')->default(0);
             $table->float('igst_percentage')->default(0);
             $table->float('igst_amount')->default(0);
-            $table->double('total_payable_amount',15,8);
+            $table->double('total_payable_amount',15,2)->default(0);
             $table->timestamps();
         });
     }

@@ -140,7 +140,7 @@ class BillController extends Controller
                  "price" => $request->bill_detail[$i]['price'],
                  "bill_id" => $bill['id'],
                  "discount_percentage" => $request->bill_detail[$i]['discount_percentage'],
-                 "discount_amount" => $request->bill_detail[$i]['discount_amount'],
+                 "discount_amount" => number_format($request->bill_detail[$i]['discount_amount']),
                  "size" => "M",
 
             ]);
@@ -154,8 +154,8 @@ $return_billdetail[] = array(
         'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
         'product_name' => $bill->billdetail[$i]->product['product_name'],
         'price' => $bill->billdetail[$i]['price'],
-        'discount_percentage' => $bill->billdetail[$i]['discount_percentage'],
-        'discount_amount' => $bill->billdetail[$i]['discount_amount'],
+        'discount_percentage' =>  number_format($bill->billdetail[$i]['discount_percentage'],2),
+        'discount_amount' => number_format($bill->billdetail[$i]['discount_amount']),
         'size' => $bill->billdetail[$i]['size']
 
     );
@@ -165,14 +165,14 @@ $return_billdetail[] = array(
                                 "invoice_no" => $bill['invoice_no'],
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
-                                "taxable_amount" => $bill['taxable_amount'],
-                                "sgst_percentage" => $bill['sgst_percentage'],
-                                "sgst_amount" => $bill['sgst_amount'],
-                                "cgst_percentage" => $bill['cgst_percentage'],
-                                "cgst_amount" => $bill['cgst_amount'],
-                                "igst_percentage" => $bill['igst_percentage'],
-                                "igst_amount" => $bill['igst_amount'],
-                                "total_payable_amount" => $bill['total_payable_amount'],
+                                "taxable_amount" => number_format($bill['taxable_amount']),
+                                "sgst_percentage" => number_format($bill['sgst_percentage'],2),
+                                "sgst_amount" => number_format($bill['sgst_amount']),
+                                "cgst_percentage" =>  number_format($bill['cgst_percentage'],2),
+                                "cgst_amount" => number_format($bill['cgst_amount']),
+                                "igst_percentage" =>  number_format($bill['igst_percentage'],2),
+                                "igst_amount" => number_format($bill['igst_amount']),
+                                "total_payable_amount" => number_format($bill['total_payable_amount']),
                                 "created_at" => $bill['created_at'],
                                 "product_detail" => $return_billdetail
         ]);
