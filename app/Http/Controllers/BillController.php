@@ -241,7 +241,5 @@ $return_billdetail[] = array(
             {
                 return response()->json(["message"=>"Record deleted successfuly"]);
             }
-    }
-
-        
+    }     
 }

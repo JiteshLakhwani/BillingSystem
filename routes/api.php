@@ -29,7 +29,7 @@ Route::delete('/deleteBill/{id}','BillController@destroy');
 Route::get('/getBill','BillController@index');
 Route::post('/createBill','BillController@store');
 
-Route::get('/testing', 'BillController@verifyToken');
+Route::post('/betweenDate', 'ReportController@BetweenDates');
 
 //Routes for users OR admin related details 
 Route::get('/userDetails','UserDetailController@show');
