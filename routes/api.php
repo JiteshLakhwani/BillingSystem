@@ -24,20 +24,23 @@ Route::get('/getCustomer','FirmController@index');
 Route::get('/showCustomer/{id}','FirmController@show');
 Route::get('/listCustomer','FirmController@lists');
 
-
+//API related to bill creation viewing
 Route::delete('/deleteBill/{id}','BillController@destroy');
 Route::get('/getBill','BillController@index');
 Route::post('/createBill','BillController@store');
 
+//API relted to reports
 Route::post('/betweenDate', 'ReportController@BetweenDates');
+Route::get('/getBill/{id}','ReportController@singleBill');
+Route::get('/historyBill','ReportController@lastBill');
 
-//Routes for users OR admin related details 
+//Routes for users OR admin related details
 Route::get('/userDetails','UserDetailController@show');
 Route::patch('/userDetails/{id}','UserDetailController@update');
 Route::delete('/userDetails/{id}','UserDetailController@destroy');
 
 
-// Routes for states 
+// Routes for states
 Route::get('/getStates','StateController@index');
 Route::post('/addState','StateController@store');
 Route::patch('/updateState/{state_code}','StateController@update');
@@ -49,6 +52,3 @@ Route::get('/getProducts','ProductController@index');
 Route::post('/addProduct','ProductController@store');
 Route::patch('/updateProduct/{id}','ProductController@update');
 Route::delete('/deleteProduct/{id}', 'ProductController@destroy');
-
-
-

@@ -140,8 +140,8 @@ class BillController extends Controller
                  "price" => $request->bill_detail[$i]['price'],
                  "bill_id" => $bill['id'],
                  "discount_percentage" => $request->bill_detail[$i]['discount_percentage'],
-                 "discount_amount" => number_format($request->bill_detail[$i]['discount_amount']),
-                 "size" => "M",
+                 "discount_amount" => $request->bill_detail[$i]['discount_amount'],
+                 "size" => $request->bill_detail[$i]['size']
 
             ]);
 }
