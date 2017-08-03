@@ -107,39 +107,10 @@ class ReportController extends Controller
         ]);
     }
 
-    public function lastBill()
+    public function lastInvoice()
     {
          $bill = Bill::get()->last();
-            $length = count($bill->billdetail);
 
-            $return_billdetail = array();
-                for ($i = 0; $i < $length; $i++) {
-                    $return_billdetail[] = array(
-                    'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
-                    'product_name' => $bill->billdetail[$i]->product['product_name'],
-                    'price' => $bill->billdetail[$i]['price'],
-                    'discount_percentage' =>  number_format($bill->billdetail[$i]['discount_percentage'],2),
-                    'discount_amount' => number_format($bill->billdetail[$i]['discount_amount']),
-                    'size' => $bill->billdetail[$i]['size']
-
-    );
-}
-        return response()->json(["id" => $bill['id'],
-                                "user_id" => $bill['user_id'],
-                                "username" => $bill->user['name'],
-                                "invoice_no" => $bill['invoice_no'],
-                                "firm_id" => $bill['firm_id'],
-                                "firm_name" => $bill->firm['name'],
-                                "taxable_amount" => number_format($bill['taxable_amount']),
-                                "sgst_percentage" => number_format($bill['sgst_percentage'],2),
-                                "sgst_amount" => number_format($bill['sgst_amount']),
-                                "cgst_percentage" =>  number_format($bill['cgst_percentage'],2),
-                                "cgst_amount" => number_format($bill['cgst_amount']),
-                                "igst_percentage" =>  number_format($bill['igst_percentage'],2),
-                                "igst_amount" => number_format($bill['igst_amount']),
-                                "total_payable_amount" => number_format($bill['total_payable_amount']),
-                                "created_at" => $bill['created_at'],
-                                "product_detail" => $return_billdetail
-        ]);
+        return response()->json($bill['invoice_no']);
     }
 }

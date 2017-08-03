@@ -32,7 +32,7 @@ Route::post('/createBill','BillController@store');
 //API relted to reports
 Route::post('/betweenDate', 'ReportController@BetweenDates');
 Route::get('/getBill/{id}','ReportController@singleBill');
-Route::get('/historyBill','ReportController@lastBill');
+Route::get('/invoiceNumber','ReportController@lastInvoice');
 
 //Routes for users OR admin related details
 Route::get('/userDetails','UserDetailController@show');
