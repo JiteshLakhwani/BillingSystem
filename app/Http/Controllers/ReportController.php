@@ -71,9 +71,20 @@ class ReportController extends Controller
         return response()->json($return_bill);
     }
 
-    public function singleBill($id)
+    public function singleBill($invoice)
     {
-            $bill = Bill::find($id);
+                try {
+                if (! $user = JWTAuth::parseToken()->authenticate()) {
+
+                    return response()->json(['error' => 'Please verify your token'], 400);
+                }
+            } catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'Token Expired'], 500);
+            }
+            
+            $billinvoice = Bill::where('invoice_no',$invoice)->get();
+            $bill = Bill::find($billinvoice[0]['id']);
             $length = count($bill->billdetail);
 
             $return_billdetail = array();

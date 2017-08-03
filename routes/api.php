@@ -31,7 +31,7 @@ Route::post('/createBill','BillController@store');
 
 //API relted to reports
 Route::post('/betweenDate', 'ReportController@BetweenDates');
-Route::get('/getBill/{id}','ReportController@singleBill');
+Route::get('/getBill/{invoice}','ReportController@singleBill');
 Route::get('/invoiceNumber','ReportController@lastInvoice');
 
 //Routes for users OR admin related details
