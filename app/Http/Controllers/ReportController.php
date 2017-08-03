@@ -84,6 +84,11 @@ class ReportController extends Controller
             }
             
             $billinvoice = Bill::where('invoice_no',$invoice)->get();
+            if($billinvoice == null)
+            {
+                 return response()->json(["message" => "Data not found"]);
+            }
+
             $bill = Bill::find($billinvoice[0]['id']);
             $length = count($bill->billdetail);
 
