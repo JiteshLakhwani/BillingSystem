@@ -33,7 +33,7 @@ class BillController extends Controller
 
         $bills = Bill::latest()->get();
 
-        if($bills->count() == 0 )
+        if(count($bills) == 0 )
             {
                 return response()->json(["message" => "No data found"]);
             }

@@ -36,6 +36,11 @@ class ReportController extends Controller
         $last_date = date('Y-m-d',strtotime($request->end_date));
         $bills = Bill::whereBetween('created_at', [$first_date, $last_date])->get();
 
+        if(count($bills) == 0)
+            {
+                 return response()->json(["message" => "Data not found"]);
+            }
+
         $return_bill = array();
         foreach ($bills as $bill)
         {
@@ -84,7 +89,7 @@ class ReportController extends Controller
             }
             
             $billinvoice = Bill::where('invoice_no',$invoice)->get();
-            if($billinvoice == null)
+            if(count($billinvoice) == 0)
             {
                  return response()->json(["message" => "Data not found"]);
             }
