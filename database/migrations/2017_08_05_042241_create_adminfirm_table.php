@@ -18,6 +18,7 @@ class CreateAdminfirmTable extends Migration
             $table->string('name');
             $table->string('person_name');
             $table->string('gst_number')->unique();
+            $table->string('email')->unique();
             $table->string('address');
             $table->string('cityname');
             $table->integer('state_code');

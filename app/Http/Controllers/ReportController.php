@@ -114,6 +114,7 @@ class ReportController extends Controller
                                 "username" => $bill->user['name'],
                                 "admin_firm" => $bill->user->adminfirm['name'],
                                 "admin_gst" => $bill->user->adminfirm['gst_number'],
+                                "admin_email" => $bill ->user->adminfirm['email'],
                                 "admin_address" => $bill->user->adminfirm['address'],
                                 "admin_cityname" => $bill->user->adminfirm['cityname'],
                                 "admin_state" => $bill->user->adminfirm->state['state_name'],

@@ -110,6 +110,7 @@ class BillController extends Controller
             $validator = Validator::make($request->all(), [
             "user_id" => 'required',
             "firm_id" => 'required',
+            "invoice_no" => 'required|unique:bills',
             "taxable_amount" => 'required',
             "total_payable_amount" => "required"
         ]);
