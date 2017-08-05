@@ -8,6 +8,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use \Response;
 use App\Bill;
 use \Validator;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -161,10 +162,20 @@ class ReportController extends Controller
         ]);
     }
 
-    public function lastInvoice()
+    public function nextInvoice()
     {
          $bill = Bill::get()->last();
+         $invocieNumber = (int) $bill['invoice_no'];
+         $invocieNumber += 1;
+        return response()->json($invocieNumber);
+    }
 
-        return response()->json($bill['invoice_no']);
+    public function weekSale()
+    {
+        $inspections = Bill::get()->groupBy(function($date) {
+                return Carbon::parse($date->created_at)->format('W');
+            });
+
+            return response()->json($inspections[0]);
     }
 }

@@ -32,7 +32,7 @@ Route::post('/createBill','BillController@store');
 //API relted to reports
 Route::post('/betweenDate', 'ReportController@BetweenDates');
 Route::get('/getBill/{invoice}','ReportController@singleBill');
-Route::get('/invoiceNumber','ReportController@lastInvoice');
+Route::get('/invoiceNumber','ReportController@nextInvoice');
 
 //Routes for users OR admin related details
 Route::get('/userDetails','UserDetailController@show');
@@ -52,3 +52,6 @@ Route::get('/getProducts','ProductController@index');
 Route::post('/addProduct','ProductController@store');
 Route::patch('/updateProduct/{id}','ProductController@update');
 Route::delete('/deleteProduct/{id}', 'ProductController@destroy');
+
+//Testing Route
+Route::get('/testing','ReportController@weekSale');
