@@ -236,7 +236,9 @@ $return_billdetail[] = array(
             {
                 return response()->json(["error"=>"Couldn't find record"]);
             }
+            
             $bill->delete();
+
             $bill = Bill::find($id);
             if($bill==null)
             {

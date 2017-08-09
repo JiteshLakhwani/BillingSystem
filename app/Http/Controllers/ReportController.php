@@ -9,6 +9,7 @@ use \Response;
 use App\Bill;
 use \Validator;
 use Carbon\Carbon;
+use \DB;
 
 class ReportController extends Controller
 {
@@ -172,10 +173,44 @@ class ReportController extends Controller
 
     public function weekSale()
     {
-        $inspections = Bill::get()->groupBy(function($date) {
-                return Carbon::parse($date->created_at)->format('W');
-            });
+        $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  
+        
+        $NowDate=Carbon::now()->format('Y-m-d');  
+       
+        $bills = Bill::whereBetween('created_at', [$AgoDate,$NowDate])->groupBy('date')
+                            ->orderBy('date')
+                            ->get(array(
+                                DB::raw('Date(created_at) as date'),
+                                DB::raw('SUM(total_payable_amount) as "sale"')
+                            ));;
+        
+        $retun_array = array();
+        foreach ($bills as $bill)
+        {
+            $retun_array[] = array($bill['date'] => $bill['sale']);
+        }
 
-            return response()->json($inspections[0]);
+        return response()->json(['weeksale' => $retun_array]);
+    }
+public function monthSale()
+    {
+        $AgoDate=Carbon::now()->subMonth()->format('Y-m-d');  
+        
+        $NowDate=Carbon::now()->format('Y-m-d');  
+       
+        $bills = Bill::whereBetween('created_at', [$AgoDate,$NowDate])->groupBy('date')
+                            ->orderBy('date')
+                            ->get(array(
+                                DB::raw('Date(created_at) as date'),
+                                DB::raw('SUM(total_payable_amount) as "sale"')
+                            ));;
+        
+        $retun_array = array();
+        foreach ($bills as $bill)
+        {
+            $retun_array[] = array($bill['date'] => $bill['sale']);
+        }
+
+        return response()->json(['weeksale' => $retun_array]);
     }
 }

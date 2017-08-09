@@ -33,6 +33,7 @@ Route::post('/createBill','BillController@store');
 Route::post('/betweenDate', 'ReportController@BetweenDates');
 Route::get('/getBill/{invoice}','ReportController@singleBill');
 Route::get('/invoiceNumber','ReportController@nextInvoice');
+Route::get('/weekSale','ReportController@weekSale');
 
 //Routes for users OR admin related details
 Route::get('/userDetails','UserDetailController@show');
