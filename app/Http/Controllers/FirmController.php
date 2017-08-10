@@ -17,15 +17,6 @@ class FirmController extends Controller
      */
     public function index()
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
             $firms = Firm::get();
             if($firms->count() == 0 )
@@ -54,15 +45,6 @@ class FirmController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
         $validator = Validator::make($request->all(), [
             "name" => 'required|string',
@@ -133,15 +115,6 @@ class FirmController extends Controller
      */
     public function show($id)
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
         $firm = Firm::find($id);
             if($firm->count() == 0 )
@@ -171,16 +144,6 @@ class FirmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
             $validator = Validator::make($request->all(), [
             "name" => 'required|string|max:191',
             "person_name" => 'required|string|max:191',
@@ -238,15 +201,6 @@ class FirmController extends Controller
      */
     public function destroy($id)
     {
-            try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
             $firm = Firm::find($id);
             if($firm == null)
@@ -263,15 +217,6 @@ class FirmController extends Controller
      
        public function lists()
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
         $firms = Firm::get();
        foreach($firms as $firm)

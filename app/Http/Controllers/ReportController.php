@@ -15,16 +15,6 @@ class ReportController extends Controller
 {
      public function BetweenDates(Request $request)
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
             $validator = Validator::make($request->all(), [
             "start_date" => 'required',
             "end_date" => 'required'
@@ -79,17 +69,7 @@ class ReportController extends Controller
     }
 
     public function singleBill($invoice)
-    {
-                try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-            
+    {          
             $billinvoice = Bill::where('invoice_no',$invoice)->get();
             if(count($billinvoice) == 0)
             {

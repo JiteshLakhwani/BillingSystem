@@ -19,18 +19,6 @@ class BillController extends Controller
      */
     public function index()
     {
-
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
-
         $bills = Bill::latest()->get();
 
         if(count($bills) == 0 )
@@ -97,16 +85,6 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
             $validator = Validator::make($request->all(), [
             "user_id" => 'required',
             "firm_id" => 'required',
@@ -221,16 +199,6 @@ $return_billdetail[] = array(
      */
     public function destroy($id)
     {
-     try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
             $bill = Bill::find($id);
             if($bill == null)
             {

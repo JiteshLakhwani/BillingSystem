@@ -18,17 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-            try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
-            $products = Product::get();
+         $products = Product::get();
             if($products->count() == 0 )
             {
                 return response()->json(["message" => "No data found"]);
@@ -62,15 +52,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
             $validator = Validator::make($request->all(), [
 
@@ -125,15 +106,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-               try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
 
             $validator = Validator::make($request->all(), [
 
@@ -176,17 +148,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-            try {
-                if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    
-                    return response()->json(['error' => 'Please verify your token'], 400);
-                }
-            } catch (JWTException $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['error' => 'Token Expired'], 500);
-            }
-
-            $product = Product::find($id);
+         $product = Product::find($id);
             if($product == null)
             {
                 return response()->json(["error"=>"Couldn't find record"]);

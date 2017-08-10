@@ -14,21 +14,9 @@ use State;
 
 class UserDetailController extends Controller
 {
-    //     public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-    public function show()
+    public function show(Request $request)
     {
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                
-                return response()->json(['error' => 'Token Not Available'], 400);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'Token Expired'], 500);
-        }
+         $user = $request->route()->parameter('user');
                   return Response::json(['username'=> $user['name'],
                                         'email' => $user['email'],
 
@@ -50,16 +38,7 @@ class UserDetailController extends Controller
 
  public function update(Request $request, $id)
     {
-
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                
-                return response()->json(['error' => 'Token Not Available'], 400);
-            }
-        }   catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'Token Expired'], 500);
-            }
+        $user = $request->route()->parameter('user');
         
         $validator = Validator::make($request->all(), [
             "username" => 'required|string',
@@ -118,15 +97,7 @@ class UserDetailController extends Controller
 
         public function destroy($id)
     {
-         try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                
-                return response()->json(['error' => 'Token Not Available'], 400);
-            }
-        }   catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'Token Expired'], 500);
-            }
+            $user = $request->route()->parameter('user');
             $checkUser = User::find($id);
                  if($checkUser == null)
                     {
