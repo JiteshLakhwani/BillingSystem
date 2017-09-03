@@ -57,12 +57,12 @@ class UserDetailController extends Controller
         }
 
         $updatedUser = User::where("id",$id)->update([
-            "name" => $request->username,
-            "email" => $request->email 
+            "name" => $request->username 
         ]);
 
         $firm = AdminFirm::where("id", $user->adminfirm['id'])->update([
             "name" => $request->name,
+            "email" => $request->email,
             "gst_number" => $request->gst_number,
             "address" => $request->address,
             "cityname" => $request->cityname,
@@ -118,4 +118,9 @@ class UserDetailController extends Controller
         }
     }
     
+
+    public function create()
+    {
+        
+    }
 }

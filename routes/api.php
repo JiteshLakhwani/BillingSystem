@@ -40,6 +40,7 @@ Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
 Route::get('/userDetails','UserDetailController@show')->middleware('myauth');
 Route::patch('/userDetails/{id}','UserDetailController@update')->middleware('myauth');
 Route::delete('/userDetails/{id}','UserDetailController@destroy')->middleware('myauth');
+Route::post('/userDetails/create','UserDetailController@create')->middleware('myauth');
 
 
 // Routes for states
