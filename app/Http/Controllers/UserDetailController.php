@@ -18,7 +18,7 @@ class UserDetailController extends Controller
     {
          $user = $request->route()->parameter('user');
                   return Response::json(['username'=> $user['name'],
-                                        'email' => $user['email'],
+                                        'email' => $user->adminfirm['email'],
 
                                         'firm_name' => $user->adminfirm['name'],
                                         'gst_number' => $user->adminfirm['gst_number'],

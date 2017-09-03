@@ -34,7 +34,7 @@ class User extends Authenticatable
 
 // This will Encrypt all password Extenal method 
 
-            public function setPasswordAttribute($password)
+    public function setPasswordAttribute($password)
     {   
         $this->attributes['password'] = bcrypt($password);
     }
