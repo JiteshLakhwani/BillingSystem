@@ -19,7 +19,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $bills = Bill::latest()->get();
+        $bills = Bill::orderBy('invoice_no','desc')->get();
 
         if(count($bills) == 0 )
             {
