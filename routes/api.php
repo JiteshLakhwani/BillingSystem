@@ -41,7 +41,7 @@ Route::get('/userDetails','UserDetailController@show')->middleware('myauth');
 Route::patch('/userDetails/{id}','UserDetailController@update')->middleware('myauth');
 Route::delete('/userDetails/{id}','UserDetailController@destroy')->middleware('myauth');
 Route::post('/userDetails/create','UserDetailController@create')->middleware('myauth');
-
+Route::patch('/userDetail/updatePassword','UserDetailController@updatePassword')->middleware('myauth');
 
 // Routes for states
 Route::get('/getStates','StateController@index')->middleware('myauth');

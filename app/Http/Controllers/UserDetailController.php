@@ -30,8 +30,6 @@ class UserDetailController extends Controller
                                         'landline_number' => $user->adminfirm['landline_number'],
                                         'created_date' => $user->adminfirm['created_at'],
                                         'updated_date' => $user->adminfirm['updated_at']
-                                        
-
         ]);
     }
 
@@ -143,5 +141,23 @@ class UserDetailController extends Controller
             "email" => $request->email,
             "password" => $request->password
         ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = $request->route()->parameter('user');
+
+        $pass = User::where("email", $user['email'])->update([
+            "password" => bcrypt($request->password)
+    ]);
+
+        if($pass == 1)
+        {
+            return response()->json('Password successfully updated');
+        }
+        else
+        {
+            return response()->json('Password not updated');
+        }
     }
 }
