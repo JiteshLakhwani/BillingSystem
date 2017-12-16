@@ -36,7 +36,7 @@ Route::get('/getBill/{invoice}','ReportController@singleBill')->middleware('myau
 Route::get('/invoiceNumber','ReportController@nextInvoice')->middleware('myauth');
 Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
 
-//Routes for users OR admin related details
+//Routes for admin related details
 Route::get('/userDetails','UserDetailController@show')->middleware('myauth');
 Route::patch('/userDetails/{id}','UserDetailController@update')->middleware('myauth');
 Route::delete('/userDetails/{id}','UserDetailController@destroy')->middleware('myauth');
