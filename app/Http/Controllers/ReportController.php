@@ -13,7 +13,7 @@ use \DB;
 
 class ReportController extends Controller
 {
-    public $globalInvoiceNumber;
+    var $globalInvoiceNumber;
      public function BetweenDates(Request $request)
     {
             $validator = Validator::make($request->all(), [

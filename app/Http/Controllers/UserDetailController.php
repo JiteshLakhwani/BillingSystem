@@ -81,24 +81,23 @@ class UserDetailController extends Controller
         {
                 $user=User::find($id);
                 return Response::json(['username'=> $user['name'],
-                                        'email' => $user->adminfirm['email'],
+                            'email' => $user->adminfirm['email'],
 
-                                        'firm_name' => $user->adminfirm['name'],
-                                        'gst_number' => $user->adminfirm['gst_number'],
-                                        'address' => $user->adminfirm['address'],
-                                        'cityname' => $user->adminfirm['cityname'],
-                                        'state_code' => $user->adminfirm['state_code'],
-                                        'pincode' => $user->adminfirm['pincode'],
-                                        'mobile_number' => $user->adminfirm['mobile_number'],
-                                        'landline_number' => $user->adminfirm['landline_number'],
-                                        'bank_name' => $user->adminfirm['bank_name'],
-                                        'branch_name' => $user->adminfirm['branch_name'],
-                                        'ifsc_code' => $user->adminfirm['ifsc_code'],
-                                        'account_no' => $user->adminfirm['account_no'],
-                                        'created_date' => $user->adminfirm['created_at'],
-                                        'updated_date' => $user->adminfirm['updated_at']
-
-                    ]);
+                            'firm_name' => $user->adminfirm['name'],
+                             'gst_number' => $user->adminfirm['gst_number'],
+                             'address' => $user->adminfirm['address'],
+                            'cityname' => $user->adminfirm['cityname'],
+                             'state_code' => $user->adminfirm['state_code'],
+                             'pincode' => $user->adminfirm['pincode'],
+                             'mobile_number' => $user->adminfirm['mobile_number'],
+                             'landline_number' => $user->adminfirm['landline_number'],
+                             'bank_name' => $user->adminfirm['bank_name'],
+                             'branch_name' => $user->adminfirm['branch_name'],
+                             'ifsc_code' => $user->adminfirm['ifsc_code'],
+                             'account_no' => $user->adminfirm['account_no'],
+                            'created_date' => $user->adminfirm['created_at'],
+                            'updated_date' => $user->adminfirm['updated_at']
+                            ]);
         }
         else{
             return response()->json(["message" => "Failed to update record"]);
