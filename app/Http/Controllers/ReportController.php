@@ -13,6 +13,7 @@ use \DB;
 
 class ReportController extends Controller
 {
+    
      public function BetweenDates(Request $request)
     {
             $validator = Validator::make($request->all(), [
@@ -147,20 +148,19 @@ class ReportController extends Controller
     {
          $count = Bill::get()->count();
          if($count==0){
-             $invocieNumber = 1;
-             return response()->json(['invoiceNumber' => $invocieNumber]);
+             $invoiceNumber = 1;
+             return response()->json(['invoiceNumber' => $invoiceNumber]);
          }
-         $invoiceNumber = 1;
-            while(1){
-                $bool = Bill::get()->find($invoiceNumber);
-                if($bool == 1){
-                    $invoiceNumber++;
-                }
-                else{
-                    return response()->json(['invoiceNumber'=> $invoiceNumber]);
-                }
-                
-            }
+    
+        $invoiceNumber = 1;
+        while(true){
+            if(Bill::get()->where('invoice_no','=',$invoiceNumber)->count() == 0){
+                return response()->json($invoiceNumber);     
+        }
+        else{
+            $invoiceNumber++;
+        }
+    }
     }
 
     public function weekSale()
