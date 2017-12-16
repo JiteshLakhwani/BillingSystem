@@ -26,6 +26,7 @@ class CreateAdminfirmTable extends Migration
             $table->bigInteger('mobile_number')->nullable();
             $table->bigInteger('landline_number')->nullable();
             $table->string('bank_name')->nullable();
+            $table->string('branch_name')->nullable();
             $table->string('ifsc_code')->nullable();
             $table->bigInteger('account_no')->nullable();
             $table->timestamps();

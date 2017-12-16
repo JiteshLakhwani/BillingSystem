@@ -29,6 +29,7 @@ class UserDetailController extends Controller
                                         'mobile_number' => $user->adminfirm['mobile_number'],
                                         'landline_number' => $user->adminfirm['landline_number'],
                                         'bank_name' => $user->adminfirm['bank_name'],
+                                        'branch_name' => $user->adminfirm['branch_name'],
                                         'ifsc_code' => $user->adminfirm['ifsc_code'],
                                         'account_no' => $user->adminfirm['account_no'],
                                         'created_date' => $user->adminfirm['created_at'],
@@ -72,6 +73,7 @@ class UserDetailController extends Controller
             "mobile_number" => $request->mobile_number,
             "landline_number" =>  $request->landline_number,
             "bank_name" => $request->bank_name,
+            "branch_name" => $request->branch_name,
             "ifsc_code" => $request->ifsc_code,
             "account_no" => $request->account_no
         ]);
@@ -90,6 +92,7 @@ class UserDetailController extends Controller
                                         'mobile_number' => $user->adminfirm['mobile_number'],
                                         'landline_number' => $user->adminfirm['landline_number'],
                                         'bank_name' => $user->adminfirm['bank_name'],
+                                        'branch_name' => $user->adminfirm['branch_name'],
                                         'ifsc_code' => $user->adminfirm['ifsc_code'],
                                         'account_no' => $user->adminfirm['account_no'],
                                         'created_date' => $user->adminfirm['created_at'],

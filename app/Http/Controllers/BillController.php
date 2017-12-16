@@ -96,6 +96,10 @@ class BillController extends Controller
         if ($validator->fails()) {
             return response()->json(["message" => $validator->errors()->all()], 400);
         }
+        // $invoice = Bill::find($request->invoice_no);
+        // if($invoice == 1){
+        //     return response()->json(["message"=>"Invoice number already occupied"]);
+        // }
 
         $bill = Bill::create([
             "user_id" => $request->user_id,
