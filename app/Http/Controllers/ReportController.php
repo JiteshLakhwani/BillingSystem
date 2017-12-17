@@ -111,7 +111,6 @@ class ReportController extends Controller
                                 "admin_ifsc_code" => $bill ->user->adminfirm['ifsc_code'],
                                 "admin_account_no" => $bill ->user->adminfirm['account_no'],
                                 
-
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
                                 "customer_name" => $bill->firm['person_name'],
@@ -158,11 +157,78 @@ class ReportController extends Controller
                  return response()->json(["message" => "firm not found"]);
             }
         $total_bill = count($firm[0]->bill);
-        foreach($firm[0]->bill as $oneBill){
-        }
-        return response()->json($firm[0]->bill[1]->billdetail);
-    }
+        $return_bill = array();
+        $return_billdetail = array();
+        for($i=0;$i<$total_bill;$i++){
+            $total_bill_details = count ($firm[0]->bill[$i]->billdetail);
+                for ($j = 0; $j < $total_bill_details; $j++) {
+                    $return_billdetail[] = array(
+                    'hsn_code' => $firm[0]->bill[$i]->billdetail[$j]->product['hsn_code'],
+                    'product_name' => $firm[0]->bill[$i]->billdetail[$j]->product['product_name'],
+                    'price' => $firm[0]->bill[$i]->billdetail[$j]['price'],
+                    'discount_percentage' =>  number_format($firm[0]->bill[$i]->billdetail[$j]['discount_percentage'],2),
+                    'discount_amount' => number_format($firm[0]->bill[$i]->billdetail[$j]['discount_amount']),
+                    'size' => $firm[0]->bill[$i]->billdetail[$j]['size'],
+                    'quantity' => $firm[0]->bill[$i]->billdetail[$j]['quantity']);
+                    }
 
+            $return_bill[] = array(
+             'invoice_no' => $firm[0]->bill[$i]['invoice_no'],
+             'taxable_amount' => $firm[0]->bill[$i]['taxable_amount'],
+             'sgst_percentage' => $firm[0]->bill[$i]['sgst_percentage'],
+             'sgst_amount' => $firm[0]->bill[$i]['sgst_amount'],
+             'cgst_percentage' => $firm[0]->bill[$i]['cgst_percentage'],
+             'cgst_amount' => $firm[0]->bill[$i]['cgst_amount'],
+             'igst_percentage' => $firm[0]->bill[$i]['igst_percentage'],
+             'igst_amount' => $firm[0]->bill[$i]['igst_amount'],
+             'total_payable_amount' => $firm[0]->bill[$i]['total_payable_amount'],
+             'bill_details' =>  $return_billdetail
+            );
+        }
+        return response()->json(["user_id" => $firm[0]->bill[0]['user_id'],
+                                "username" => $firm[0]->bill[0]->user['name'],
+                                "admin_firm" => $firm[0]->bill[0]->user->adminfirm['name'],
+                                "admin_gst" => $firm[0]->bill[0]->user->adminfirm['gst_number'],
+                                "admin_email" => $firm[0]->bill[0]->user->adminfirm['email'],
+                                "admin_address" => $firm[0]->bill[0]->user->adminfirm['address'],
+                                "admin_cityname" => $firm[0]->bill[0]->user->adminfirm['cityname'],
+                                "admin_state" => $firm[0]->bill[0]->user->adminfirm->state['state_name'],
+                                "admin_state_code" => $firm[0]->bill[0]->user->adminfirm['state_code'],
+                                "admin_pincode" => $firm[0]->bill[0]->user->adminfirm['pincode'],
+                                "admin_mobile_number" => $firm[0]->bill[0]->user->adminfirm['mobile_number'],
+                                "admin_landline_number" => $firm[0]->bill[0]->user->adminfirm['landline_number'],
+                                "admin_bank_name" => $firm[0]->bill[0] ->user->adminfirm['bank_name'],
+                                "admin_branch_name" => $firm[0]->bill[0]->user->adminfirm['branch_name'],
+                                "admin_ifsc_code" => $firm[0]->bill[0]->user->adminfirm['ifsc_code'],
+                                "admin_account_no" => $firm[0]->bill[0]->user->adminfirm['account_no'],
+
+                                "firm_id" => $firm[0]['id'],
+                                "firm_name" => $firm[0]['name'],
+                                "customer_name" => $firm[0]['person_name'],
+                                "customer_gst" => $firm[0]['gst_number'],
+                                "customer_email" => $firm[0]['email'],
+                                "shipping_address" => $firm[0]['shipping_address'],
+                                "shipping_city" => $firm[0]['shipping_city'],
+                                "shipping_state" => $firm[0]->shippingState['state_name'],
+                                "shipping_state_code" => $firm[0]['shipping_state_code'],
+                                "shipping_pincode" => $firm[0]['shipping_pincode'],
+                                "shipping_mobile_number" => $firm[0]['shipping_mobile_number'],
+                                "shipping_landline_number" => $firm[0]['shipping_landline_number'],
+                                "shipping_landline_number" => $firm[0]['shipping_landline_number'],
+
+                                "billing_address" => $firm[0]['billing_address'],
+                                "billing_city" => $firm[0]['billing_city'],
+                                "billing_state" => $firm[0]->billingState['state_name'],
+                                "billing_state_code" => $firm[0]['billing_state_code'],
+                                "billing_pincode" => $firm[0]['billing_pincode'],
+                                "billing_mobile_number" => $firm[0]['billing_mobile_number'],
+                                "billing_landline_number" => $firm[0]['billing_landline_number'],
+                                "billing_landline_number" => $firm[0]['billing_landline_number'],
+                                
+                                "bill" => $return_bill
+                                ]);
+    }
+    
     public function nextInvoice()
     {
          $count = Bill::get()->count();
