@@ -35,6 +35,7 @@ Route::post('/betweenDate', 'ReportController@BetweenDates')->middleware('myauth
 Route::get('/getBill/{invoice}','ReportController@singleBill')->middleware('myauth');
 Route::get('/invoiceNumber','ReportController@nextInvoice')->middleware('myauth');
 Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
+Route::get('/firmName/{name}','ReportController@firmName')->middleware('myauth');
 
 //Routes for admin related details
 Route::get('/userDetails','UserDetailController@show')->middleware('myauth');

@@ -7,6 +7,7 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use \Response;
 use App\Bill;
+use App\Firm;
 use \Validator;
 use Carbon\Carbon;
 use \DB;
@@ -105,6 +106,11 @@ class ReportController extends Controller
                                 "admin_pincode" => $bill->user->adminfirm['pincode'],
                                 "admin_mobile_number" => $bill ->user->adminfirm['mobile_number'],
                                 "admin_landline_number" => $bill ->user->adminfirm['landline_number'],
+                                "admin_bank_name" => $bill ->user->adminfirm['bank_name'],
+                                "admin_branch_name" => $bill ->user->adminfirm['branch_name'],
+                                "admin_ifsc_code" => $bill ->user->adminfirm['ifsc_code'],
+                                "admin_account_no" => $bill ->user->adminfirm['account_no'],
+                                
 
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
@@ -142,6 +148,19 @@ class ReportController extends Controller
                                 "created_at" => $bill['created_at'],
                                 "product_detail" => $return_billdetail
         ]);
+    }
+
+    public function firmName($name){
+        $firm = Firm::where('name',$name)->get();
+
+        if(count($firm) == 0)
+            {
+                 return response()->json(["message" => "firm not found"]);
+            }
+        $total_bill = count($firm[0]->bill);
+        foreach($firm[0]->bill as $oneBill){
+        }
+        return response()->json($firm[0]->bill[1]->billdetail);
     }
 
     public function nextInvoice()
