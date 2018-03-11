@@ -240,7 +240,8 @@ class ReportController extends Controller
         $invoiceNumber = 1;
         while(true){
             if(Bill::get()->where('invoice_no','=',$invoiceNumber)->count() == 0){
-                return response()->json($invoiceNumber);     
+
+                return response()->json(strftime("%Y")."-".$invoiceNumber);     
         }
         else{
             $invoiceNumber++;
