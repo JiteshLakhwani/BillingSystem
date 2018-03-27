@@ -239,9 +239,26 @@ class ReportController extends Controller
     
         $invoiceNumber = 1;
         while(true){
+           
             if(Bill::get()->where('invoice_no','=',$invoiceNumber)->count() == 0){
+                date_default_timezone_set('Asia/Kolkata');
+                if(date("m") <= "03"){
+                    $fullCurrentYear = date("Y");
+                    $currentYear = date("y");
+                    $previousYear = $fullCurrentYear - 1;
+                    return response()->json($previousYear."-".$currentYear."_".$invoiceNumber);
+                }
+                else{
+                    $currentYear = date("y");
+                    $nextYear = $currentYear + 1;
+                    return response()->json($year);
+                }
+                
+                // if(strtotime("24-03-2018") > strtotime("25-03-2018")){
+                //     return response()->json($invoiceNumber);    
+                // }
 
-                return response()->json(strftime("%Y")."-".$invoiceNumber);     
+                // return response()->json($invoiceNumber);     
         }
         else{
             $invoiceNumber++;
