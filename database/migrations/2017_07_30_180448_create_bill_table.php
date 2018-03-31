@@ -15,7 +15,8 @@ class CreateBillTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('invoice_no')->nullable();
+            $table->string('invoice_no');
+            $table->string('invoiceYear');
             $table->integer('firm_id',false);
             $table->integer('user_id',false);          
             $table->double('taxable_amount',15)->default(0);

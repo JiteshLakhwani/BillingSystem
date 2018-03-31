@@ -8,7 +8,7 @@ class Bill extends Model
 {
     protected $fillable = ['firm_id', 'user_id', 'sgst_percentage', 'invoice_no','created_at',
     'sgst_amount','cgst_percentage', 'cgst_amount','igst_percentage', 'igst_amount','taxable_amount',
-    'total_payable_amount'];
+    'total_payable_amount', 'invoiceYear'];
     public function firm()
     {
         return $this->belongsTo(Firm::class);

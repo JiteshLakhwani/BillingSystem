@@ -26,13 +26,13 @@ Route::get('/showCustomer/{id}','FirmController@show')->middleware('myauth');
 Route::get('/listCustomer','FirmController@lists')->middleware('myauth');
 
 //API related to bill creation viewing and deletion
-Route::get('/getBill','BillController@index')->middleware('myauth');
+Route::get('/getBills','BillController@index')->middleware('myauth');
 Route::post('/createBill','BillController@store')->middleware('myauth');
 Route::delete('/deleteBill/{id}','BillController@destroy')->middleware('myauth');
 
 //API relted to reports
 Route::post('/betweenDate', 'ReportController@BetweenDates')->middleware('myauth');
-Route::get('/getBill/{invoice}','ReportController@singleBill')->middleware('myauth');
+Route::get('/getBill','ReportController@singleBill')->middleware('myauth');
 Route::get('/invoiceNumber','ReportController@nextInvoice')->middleware('myauth');
 Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
 Route::get('/firmName/{name}','ReportController@firmName')->middleware('myauth');

@@ -50,7 +50,6 @@ class FirmController extends Controller
             "name" => 'required|string',
             "person_name" => 'required|string',
             "email" => 'required|email|max:255|unique:firms',
-            "gst_number" => 'required',
             "billing_address" => 'required',
             "billing_city" => 'required|string',
             "billing_state_code" => 'required|integer',
