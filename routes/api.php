@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 //Routes for user login
 Route::post('/login','AuthenticateController@authenticate');
 Route::get('/login','AuthenticateController@login') -> name('login');
+Route::get('/token', 'AuthenticateController@token');
 
 //Route for customer
 Route::post('/createCustomer','FirmController@store')->middleware('myauth');

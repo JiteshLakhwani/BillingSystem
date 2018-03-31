@@ -9,7 +9,7 @@ use \Response;
 
 class AuthenticateController extends Controller
 {
-     public function authenticate(Request $request)
+    public function authenticate(Request $request)
     {
         // grab credentials from the request
         $credentials = $request->only('email','password');
@@ -24,10 +24,23 @@ class AuthenticateController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
+        
         // all good so return the token
         return response()->json(compact('token'));
     }
-
-
+    
+    // AuthController
+    public function token(){
+        $token = JWTAuth::getToken();
+        if(!$token){
+            throw new BadRequestHtttpException('Token not provided');
+        }
+        try{
+            $token = JWTAuth::refresh($token);
+        }catch(TokenInvalidException $e){
+            throw new AccessDeniedHttpException('The token is invalid');
+        }
+        return $this->response->withArray(['token'=>$token]);
+    }
+    
 }
