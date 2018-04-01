@@ -105,6 +105,7 @@ class BillController extends Controller
             "user_id" => $request->user_id,
             "firm_id" => $request->firm_id,
             "invoice_no" => $request->invoice_no,
+            "invoiceYear" => $request->invoiceYear,
             "taxable_amount" => $request->taxable_amount,           
             "sgst_percentage" => $request->sgst_percentage,
             "sgst_amount" => $request->sgst_amount,

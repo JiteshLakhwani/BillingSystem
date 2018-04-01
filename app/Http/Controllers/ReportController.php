@@ -150,6 +150,50 @@ class ReportController extends Controller
             "product_detail" => $return_billdetail
             ]);
         }
+
+        public function fiscalYear($year){
+            $bills = Bill::where('invoiceYear',$year)->get();
+            
+            if(count($bills) == 0)
+            {
+                return response()->json(["message" => "Data not found"]);
+            }
+            
+            $return_bill = array();
+            foreach ($bills as $bill)
+            {
+                $length = count($bill->billdetail);
+                $return_billdetail = array();
+                
+                for ($i = 0; $i < $length; $i++) {
+                    $return_billdetail[] = array('hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
+                    'product_name' => $bill->billdetail[$i]->product['product_name'],
+                    'price' => $bill->billdetail[$i]['price'],
+                    'discount_percentage' => $bill->billdetail[$i]['discount_percentage'],
+                    'discount_amount' => $bill->billdetail[$i]['discount_amount'],
+                    'size' => $bill->billdetail[$i]['size']);
+                }
+                $return_bill[] = array("id" => $bill['id'],
+                "user_id" => $bill['user_id'],
+                "username" => $bill->user['name'],
+                "firm_id" => $bill['firm_id'],
+                "firm_name" => $bill->firm['name'],
+                "invoice_no" => $bill['invoice_no'],
+                "gstNumber" => $bill->firm['gst_number'],
+                "taxable_amount" => $bill['taxable_amount'],
+                "sgst_percentage" => $bill['sgst_percentage'],
+                "sgst_amount" => $bill['sgst_amount'],
+                "cgst_percentage" => $bill['cgst_percentage'],
+                "cgst_amount" => $bill['cgst_amount'],
+                "igst_percentage" => $bill['igst_percentage'],
+                "igst_amount" => $bill['igst_amount'],
+                "total_payable_amount" => $bill['total_payable_amount'],
+                "created_at" => $bill['created_at'],
+                "billdetail" => $return_billdetail);
+                
+            }
+            return response()->json($return_bill);
+        }
         
         public function firmName($name){
             $firm = Firm::where('name',$name)->get();
@@ -235,16 +279,16 @@ class ReportController extends Controller
             {
                 date_default_timezone_set('Asia/Kolkata');
                 if(date("m") <= "03"){
-                    $fullCurrentYear = date("Y");
-                    $currentYear = date("y");
-                    $previousYear = $fullCurrentYear - 1;
-                    $year = $previousYear."-".$currentYear;
+                    $fullCurrentYear = date("Y"); //2018
+                    $currentYear = date("y"); //18
+                    $previousYear = $fullCurrentYear - 1; //2017
+                    $year = $previousYear."-".$currentYear; //2017-18
                     
                 }
                 
                 else{
                     
-                    $fullCurrentYear = date("Y");
+                    $fullCurrentYear = date("Y"); 
                     $currentYear = date("y");
                     $nextYear = $currentYear + 1;
                     $year = $fullCurrentYear."-".$nextYear;
