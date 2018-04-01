@@ -33,10 +33,11 @@ Route::delete('/deleteBill/{id}','BillController@destroy')->middleware('myauth')
 
 //API relted to reports
 Route::post('/betweenDate', 'ReportController@BetweenDates')->middleware('myauth');
-Route::get('/getBill','ReportController@singleBill')->middleware('myauth');
+Route::get('/getBill/{invoice_no}/{invoiceYear}','ReportController@singleBill')->middleware('myauth');
 Route::get('/invoiceNumber','ReportController@nextInvoice')->middleware('myauth');
 Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
 Route::get('/firmName/{name}','ReportController@firmName')->middleware('myauth');
+Route::get('/checkInvoice/{invoice}/{invoiceYear}','ReportController@checkInvoice')->middleware('myauth');
 
 //Routes for admin related details
 Route::get('/userDetails','UserDetailController@show')->middleware('myauth');

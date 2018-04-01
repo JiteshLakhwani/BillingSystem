@@ -71,9 +71,9 @@ class ReportController extends Controller
             return response()->json($return_bill);
         }
         
-        public function singleBill(Request $request)
+        public function singleBill($invoice_no, $invoiceYear)
         {          
-            $billinvoice = Bill::where('invoice_no',$request->invoice_no)->where('invoiceYear',$request->invoiceYear)->get();
+            $billinvoice = Bill::where('invoice_no',$invoice_no)->where('invoiceYear',$invoiceYear)->get();
             if(count($billinvoice) == 0)
             {
                 return response()->json(["message" => "bill not found"]);
@@ -246,11 +246,10 @@ class ReportController extends Controller
                     
                     $fullCurrentYear = date("Y");
                     $currentYear = date("y");
-                    $nextYear = $fullCurrentYear + 1;
-                    $year = $nextYear."-".$currentYear;
+                    $nextYear = $currentYear + 1;
+                    $year = $fullCurrentYear."-".$nextYear;
                     
                 }
-                // $year = "2016-17";
                 $count = Bill::get()->where('invoiceYear','=',$year)->count();
                 if($count == 0){
                     $invoiceNumber = 1;
@@ -322,6 +321,14 @@ class ReportController extends Controller
                 }
                 
                 return response()->json(['weeksale' => $retun_array]);
+            }
+
+            public function checkInvoice($invoice, $invoiceYear){
+                $count = Bill::where('invoice_no',$invoice)->where('invoiceYear',$invoiceYear)->count();
+                if($count == 0){
+                    return response()->json(['message' => 'proceed']);
+                }
+                return response()->json(['message' => 'invoice already exists']);
             }
         }
         
