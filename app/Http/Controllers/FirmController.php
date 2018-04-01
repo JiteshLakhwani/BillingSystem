@@ -217,6 +217,9 @@ class FirmController extends Controller
        public function lists()
     {
 
+        if(Firm::get()->count() == 0){
+            return response()->json(["message" => "No Customer"]);
+        }
         $firms = Firm::get();
        foreach($firms as $firm)
             {
