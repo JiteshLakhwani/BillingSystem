@@ -144,16 +144,12 @@ class FirmController extends Controller
             $validator = Validator::make($request->all(), [
             "name" => 'required|string|max:191',
             "person_name" => 'required|string|max:191',
-            "gst_number" => 'required|min:15|max:15',
-            "email" => 'required|email|max:191',
             "billing_address" => 'required|max:191',
             "billing_city" => 'required|string|max:191',
             "billing_state_code" => 'required|integer',
-            "billing_pincode" => 'required|integer',
             "shipping_address" => 'required|max:191',
             "shipping_city" => 'required|string|max:191',
-            "shipping_state_code" => 'required|integer',
-            "shipping_pincode" => 'required|integer',
+            "shipping_state_code" => 'required|integer'
         ]);
 
         if ($validator->fails()) {
