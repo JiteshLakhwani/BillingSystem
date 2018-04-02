@@ -130,7 +130,7 @@ class ChallanReportController extends Controller
             "billing_state" => $challan->firm->billingState['state_name'],
             "billing_state_code" => $challan->firm['billing_state_code'],
             "billing_pincode" => $challan->firm['billing_pincode'],
-            "billing_mobile_number" => $bill->firm['billing_mobile_number'],
+            "billing_mobile_number" => $challan->firm['billing_mobile_number'],
             "billing_landline_number" => $challan->firm['billing_landline_number'],
             "billing_landline_number" => $challan->firm['billing_landline_number'],
             
