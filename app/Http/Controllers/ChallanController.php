@@ -69,8 +69,8 @@ $return_challandetail[] = array(
 }
         return response()->json(["user_id" => $challan['user_id'],
                                 "username" => $challan->user['name'],
-                                "invoice_no" => $challan['invoice_no'],
-                                "invoiceYear" => $challan['invoiceYear'],
+                                "challan_no" => $challan['challan_no'],
+                                "challanYear" => $challan['challanYear'],
                                 "firm_id" => $challan['firm_id'],
                                 "firm_name" => $challan->firm['name'],
                                 "total_payable_amount" => number_format($challan['total_payable_amount']),
