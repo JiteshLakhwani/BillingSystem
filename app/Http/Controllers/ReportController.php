@@ -138,6 +138,7 @@ class ReportController extends Controller
             
             "id" => $bill['id'],
             "invoice_no" => $bill['invoice_no'],
+            "invoiceYear" => $bill['invoiceYear'],
             "taxable_amount" => number_format($bill['taxable_amount']),
             "sgst_percentage" => number_format($bill['sgst_percentage'],2),
             "sgst_amount" => number_format($bill['sgst_amount']),
@@ -320,8 +321,6 @@ class ReportController extends Controller
                 
                 return response()->json(['invoiceNumber' => $invoiceNumber,
                 'year' => $year]);
-                
-                
             }
             
             public function weekSale()

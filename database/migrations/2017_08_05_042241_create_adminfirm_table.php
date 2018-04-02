@@ -29,6 +29,8 @@ class CreateAdminfirmTable extends Migration
             $table->string('branch_name')->nullable();
             $table->string('ifsc_code')->nullable();
             $table->bigInteger('account_no')->nullable();
+            $table->integer('invoice_print_copy')->nullable();
+            $table->integer('challan_print_copy')->nullable();
             $table->timestamps();
         });
     }

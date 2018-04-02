@@ -31,7 +31,18 @@ Route::get('/getBills','BillController@index')->middleware('myauth');
 Route::post('/createBill','BillController@store')->middleware('myauth');
 Route::delete('/deleteBill/{id}','BillController@destroy')->middleware('myauth');
 
-//API relted to reports
+// API related to challan
+Route::post('/createChallan','ChallanController@store')->middleware('myauth');
+Route::delete('/deleteChallan/{id}','ChallanController@destroy')->middleware('myauth');
+Route::get('/getChallans','ChallanController@index')->middleware('myauth');
+
+// API related to reports challan
+Route::get('/getChallan/{challan_no}/{challanYear}','ChallanReportController@singleChallan')->middleware('myauth');
+Route::get('/getChallans/{year}','ChallanReportController@fiscalYear')->middleware('myauth');
+Route::get('/challanNumber','ChallanReportController@nextChallan')->middleware('myauth');
+Route::get('/checkChallan/{challan}/{challanYear}','ChallanReportController@checkChallan')->middleware('myauth');
+
+//API relted to reports BILLS
 Route::post('/betweenDate', 'ReportController@BetweenDates')->middleware('myauth');
 Route::get('/getBill/{invoice_no}/{invoiceYear}','ReportController@singleBill')->middleware('myauth');
 Route::get('/getBills/{year}','BillController@fiscalYear')->middleware('myauth');
