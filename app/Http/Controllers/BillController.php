@@ -147,6 +147,7 @@ $return_billdetail[] = array(
         return response()->json(["user_id" => $bill['user_id'],
                                 "username" => $bill->user['name'],
                                 "invoice_no" => $bill['invoice_no'],
+                                "invoiceYear" => $bill['invoiceYear'],
                                 "firm_id" => $bill['firm_id'],
                                 "firm_name" => $bill->firm['name'],
                                 "taxable_amount" => number_format($bill['taxable_amount']),
