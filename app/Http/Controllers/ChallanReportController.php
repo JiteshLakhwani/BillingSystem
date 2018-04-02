@@ -59,4 +59,12 @@ class ChallanReportController extends Controller
                 return response()->json(['challanNumber' => $challanNumber,
                 'year' => $year]);   
             }
+
+            public function checkChallan($challan, $challanYear){
+                $count = Bill::where('challan_no',$challan)->where('challanYear',$challanYear)->count();
+                if($count == 0){
+                    return response()->json(['message' => 'proceed']);
+                }
+                return response()->json(['message' => 'challan already exists']);
+            }
 }
