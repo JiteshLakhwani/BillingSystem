@@ -46,7 +46,7 @@ class ChallanReportController extends Controller
                 while(!$flag){
                     
                     for ($i=0; $i < $count; $i++) { 
-                        if ( $bill[$i]['challan_no'] == $challanNumber ){
+                        if ( $challan[$i]['challan_no'] == $challanNumber ){
                             $flag = false;
                             $challanNumber++;
                             continue;
