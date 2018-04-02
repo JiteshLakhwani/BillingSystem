@@ -61,7 +61,7 @@ class ChallanReportController extends Controller
             }
 
             public function checkChallan($challan, $challanYear){
-                $count = Bill::where('challan_no',$challan)->where('challanYear',$challanYear)->count();
+                $count = Challan::where('challan_no',$challan)->where('challanYear',$challanYear)->count();
                 if($count == 0){
                     return response()->json(['message' => 'proceed']);
                 }
