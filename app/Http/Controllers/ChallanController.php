@@ -9,7 +9,6 @@ use \Response;
 use App\Challan;
 use App\ChallanDetail;
 use \Validator;
-use \Product;
 
 class ChallanController extends Controller
 {

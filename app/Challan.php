@@ -18,7 +18,7 @@ class Challan extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function billdetail()
+    public function challandetail()
     {
         return $this->hasMany(ChallanDetail::class);
     }
