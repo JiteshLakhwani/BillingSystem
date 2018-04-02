@@ -67,4 +67,79 @@ class ChallanReportController extends Controller
                 }
                 return response()->json(['message' => 'challan already exists']);
             }
+
+
+            public function singlechallan($challan_no, $challanYear)
+        {          
+            $challanNumber = Challan::where('challan_no',$challan_no)->where('challanYear',$challanYear)->get();
+            if(count($challanNumber) == 0)
+            {
+                return response()->json(["message" => "challan not found"]);
+            }
+
+            
+            $challan = challan::find($challanNumber[0]['id']);
+            $length = count($challan->challandetail);
+            
+            $return_challandetail = array();
+            for ($i = 0; $i < $length; $i++) {
+                $return_challandetail[] = array(
+                    'hsn_code' => $challan->challandetail[$i]->product['hsn_code'],
+                    'product_name' => $challan->challandetail[$i]->product['product_name'],
+                    'price' => $challan->challandetail[$i]['price'],
+                    'discount_percentage' =>  number_format($challan->challandetail[$i]['discount_percentage'],2),
+                    'discount_amount' => number_format($challan->challandetail[$i]['discount_amount']),
+                    'size' => $challan->challandetail[$i]['size'],
+                    'quantity' => $challan->challandetail[$i]['quantity']
+                    
+                );
+            }
+            return response()->json(["user_id" => $challan['user_id'],
+            "username" => $challan->user['name'],
+            "admin_firm" => $challan->user->adminfirm['name'],
+            "admin_gst" => $challan->user->adminfirm['gst_number'],
+            "admin_email" => $challan ->user->adminfirm['email'],
+            "admin_address" => $challan->user->adminfirm['address'],
+            "admin_cityname" => $challan->user->adminfirm['cityname'],
+            "admin_state" => $challan->user->adminfirm->state['state_name'],
+            "admin_state_code" => $challan->user->adminfirm['state_code'],
+            "admin_pincode" => $challan->user->adminfirm['pincode'],
+            "admin_mobile_number" => $challan ->user->adminfirm['mobile_number'],
+            "admin_landline_number" => $challan ->user->adminfirm['landline_number'],
+            "admin_bank_name" => $challan ->user->adminfirm['bank_name'],
+            "admin_branch_name" => $challan ->user->adminfirm['branch_name'],
+            "admin_ifsc_code" => $challan ->user->adminfirm['ifsc_code'],
+            "admin_account_no" => $challan ->user->adminfirm['account_no'],
+            
+            "firm_id" => $challan['firm_id'],
+            "firm_name" => $challan->firm['name'],
+            "customer_name" => $challan->firm['person_name'],
+            "customer_gst" => $challan->firm['gst_number'],
+            "customer_email" => $challan->firm['email'],
+            "shipping_address" => $challan->firm['shipping_address'],
+            "shipping_city" => $challan->firm['shipping_city'],
+            "shipping_state" => $challan->firm->shippingState['state_name'],
+            "shipping_state_code" => $challan->firm['shipping_state_code'],
+            "shipping_pincode" => $challan->firm['shipping_pincode'],
+            "shipping_mobile_number" => $challan->firm['shipping_mobile_number'],
+            "shipping_landline_number" => $challan->firm['shipping_landline_number'],
+            "shipping_landline_number" => $challan->firm['shipping_landline_number'],
+            
+            "billing_address" => $challan->firm['billing_address'],
+            "billing_city" => $challan->firm['billing_city'],
+            "billing_state" => $challan->firm->billingState['state_name'],
+            "billing_state_code" => $challan->firm['billing_state_code'],
+            "billing_pincode" => $challan->firm['billing_pincode'],
+            "billing_mobile_number" => $bill->firm['billing_mobile_number'],
+            "billing_landline_number" => $challan->firm['billing_landline_number'],
+            "billing_landline_number" => $challan->firm['billing_landline_number'],
+            
+            "id" => $challan['id'],
+            "challan_no" => $challan['challan_no'],
+            "challanYear" => $challan['challanYear'],
+            "total_payable_amount" => number_format($challan['total_payable_amount']),
+            "created_at" => $challan['created_at'],
+            "product_detail" => $return_challandetail
+            ]);
+        }
 }
