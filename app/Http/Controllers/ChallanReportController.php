@@ -40,7 +40,7 @@ class ChallanReportController extends Controller
                     'year' => $year]);
                 }
                 
-                $bill = Bill::where('challanYear',$year)->get();
+                $challan = Challan::where('challanYear',$year)->get();
                 $challanNumber = 1;
                 $flag = false ; 
                 while(!$flag){
