@@ -51,6 +51,7 @@ class BillController extends Controller
                                 "firm_name" => $bill->firm['name'],
                                 "invoice_no" => $bill['invoice_no'],
                                 "invoiceYear" => $bill['invoiceYear'],
+                                "gstNumber" => $bill->firm['gst_number'],
                                 "taxable_amount" => $bill['taxable_amount'],
                                 "sgst_percentage" => $bill['sgst_percentage'],
                                 "sgst_amount" => $bill['sgst_amount'],
