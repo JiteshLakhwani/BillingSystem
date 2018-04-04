@@ -43,7 +43,7 @@ class BillController extends Controller
                 'size' => $bill->billdetail[$i]['size']
     );
     }
-            $return_bill = array(
+            $return_bill [] = array(
                                 "id" => $bill['id'],
                                 "user_id" => $bill['user_id'],
                                 "username" => $bill->user['name'],
