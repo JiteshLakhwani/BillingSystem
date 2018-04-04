@@ -45,7 +45,7 @@ Route::get('/checkChallan/{challan}/{challanYear}','ChallanReportController@chec
 //API relted to reports BILLS
 Route::post('/betweenDate', 'ReportController@BetweenDates')->middleware('myauth');
 Route::get('/getBill/{invoice_no}/{invoiceYear}','ReportController@singleBill')->middleware('myauth');
-Route::get('/getBills/{year}','BillController@fiscalYear')->middleware('myauth');
+Route::get('/getBills/{year}','ReportController@fiscalYear')->middleware('myauth');
 Route::get('/invoiceNumber','ReportController@nextInvoice')->middleware('myauth');
 Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
 Route::get('/firmName/{name}','ReportController@firmName')->middleware('myauth');

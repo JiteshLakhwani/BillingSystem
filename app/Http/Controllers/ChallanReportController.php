@@ -106,10 +106,6 @@ class ChallanReportController extends Controller
             "admin_pincode" => $challan->user->adminfirm['pincode'],
             "admin_mobile_number" => $challan ->user->adminfirm['mobile_number'],
             "admin_landline_number" => $challan ->user->adminfirm['landline_number'],
-            "admin_bank_name" => $challan ->user->adminfirm['bank_name'],
-            "admin_branch_name" => $challan ->user->adminfirm['branch_name'],
-            "admin_ifsc_code" => $challan ->user->adminfirm['ifsc_code'],
-            "admin_account_no" => $challan ->user->adminfirm['account_no'],
             
             "firm_id" => $challan['firm_id'],
             "firm_name" => $challan->firm['name'],
@@ -141,5 +137,41 @@ class ChallanReportController extends Controller
             "created_at" => $challan['created_at'],
             "product_detail" => $return_challandetail
             ]);
+        }
+
+        public function fiscalYear($year){
+            $challans = Challan::where('challanYear',$year)->get();
+            
+            if(count($challans) == 0)
+            {
+                return response()->json(["message" => "Data not found"]);
+            }
+            
+            $return_challan = array();
+            foreach ($challans as $challan)
+            {
+                $length = count($challan->challandetail);
+                $return_challandetail = array();
+                
+                for ($i = 0; $i < $length; $i++) {
+                    $return_challandetail[] = array('hsn_code' => $challan->challandetail[$i]->product['hsn_code'],
+                    'product_name' => $challan->challandetail[$i]->product['product_name'],
+                    'price' => $challan->challandetail[$i]['price'],
+                    'discount_percentage' => $challan->challandetail[$i]['discount_percentage'],
+                    'discount_amount' => $challan->challandetail[$i]['discount_amount'],
+                    'size' => $challan->challandetail[$i]['size']);
+                }
+                $return_challan[] = array("id" => $challan['id'],
+                "user_id" => $challan['user_id'],
+                "username" => $challan->user['name'],
+                "firm_id" => $challan['firm_id'],
+                "firm_name" => $challan->firm['name'],
+                "challan_no" => $challan['challan_no'],
+                "total_payable_amount" => $challan['total_payable_amount'],
+                "created_at" => $challan['created_at'],
+                "challandetail" => $return_challandetail);
+                
+            }
+            return response()->json($return_challan);
         }
 }
