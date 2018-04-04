@@ -11,6 +11,7 @@ use App\Firm;
 use \Validator;
 use Carbon\Carbon;
 use \DB;
+use App\Challan;
 
 class ReportController extends Controller
 {
@@ -71,7 +72,7 @@ class ReportController extends Controller
             return response()->json($return_bill);
         }
         
-
+        
         public function fiscalYear($year){
             $bills = Bill::where('invoiceYear',$year)->get();
             
@@ -100,6 +101,7 @@ class ReportController extends Controller
                 "firm_id" => $bill['firm_id'],
                 "firm_name" => $bill->firm['name'],
                 "invoice_no" => $bill['invoice_no'],
+                "invoiceYear" => $bill['invoiceYear'],
                 "gstNumber" => $bill->firm['gst_number'],
                 "taxable_amount" => $bill['taxable_amount'],
                 "sgst_percentage" => $bill['sgst_percentage'],
@@ -196,6 +198,87 @@ class ReportController extends Controller
                 ]);
             }
             
+            public function singleBill($invoice_no, $invoiceYear)
+            {          
+                $billinvoice = Bill::where('invoice_no',$invoice_no)->where('invoiceYear',$invoiceYear)->get();
+                if(count($billinvoice) == 0)
+                {
+                    return response()->json(["message" => "bill not found"]);
+                }
+                
+                
+                $bill = Bill::find($billinvoice[0]['id']);
+                $length = count($bill->billdetail);
+                
+                $return_billdetail = array();
+                for ($i = 0; $i < $length; $i++) {
+                    $return_billdetail[] = array(
+                        'hsn_code' => $bill->billdetail[$i]->product['hsn_code'],
+                        'product_name' => $bill->billdetail[$i]->product['product_name'],
+                        'price' => $bill->billdetail[$i]['price'],
+                        'discount_percentage' =>  number_format($bill->billdetail[$i]['discount_percentage'],2),
+                        'discount_amount' => number_format($bill->billdetail[$i]['discount_amount']),
+                        'size' => $bill->billdetail[$i]['size'],
+                        'quantity' => $bill->billdetail[$i]['quantity']
+                        
+                    );
+                }
+                return response()->json(["user_id" => $bill['user_id'],
+                "username" => $bill->user['name'],
+                "admin_firm" => $bill->user->adminfirm['name'],
+                "admin_gst" => $bill->user->adminfirm['gst_number'],
+                "admin_email" => $bill ->user->adminfirm['email'],
+                "admin_address" => $bill->user->adminfirm['address'],
+                "admin_cityname" => $bill->user->adminfirm['cityname'],
+                "admin_state" => $bill->user->adminfirm->state['state_name'],
+                "admin_state_code" => $bill->user->adminfirm['state_code'],
+                "admin_pincode" => $bill->user->adminfirm['pincode'],
+                "admin_mobile_number" => $bill ->user->adminfirm['mobile_number'],
+                "admin_landline_number" => $bill ->user->adminfirm['landline_number'],
+                "admin_bank_name" => $bill ->user->adminfirm['bank_name'],
+                "admin_branch_name" => $bill ->user->adminfirm['branch_name'],
+                "admin_ifsc_code" => $bill ->user->adminfirm['ifsc_code'],
+                "admin_account_no" => $bill ->user->adminfirm['account_no'],
+                
+                "firm_id" => $bill['firm_id'],
+                "firm_name" => $bill->firm['name'],
+                "customer_name" => $bill->firm['person_name'],
+                "customer_gst" => $bill->firm['gst_number'],
+                "customer_email" => $bill->firm['email'],
+                "shipping_address" => $bill->firm['shipping_address'],
+                "shipping_city" => $bill->firm['shipping_city'],
+                "shipping_state" => $bill->firm->shippingState['state_name'],
+                "shipping_state_code" => $bill->firm['shipping_state_code'],
+                "shipping_pincode" => $bill->firm['shipping_pincode'],
+                "shipping_mobile_number" => $bill->firm['shipping_mobile_number'],
+                "shipping_landline_number" => $bill->firm['shipping_landline_number'],
+                "shipping_landline_number" => $bill->firm['shipping_landline_number'],
+                
+                "billing_address" => $bill->firm['billing_address'],
+                "billing_city" => $bill->firm['billing_city'],
+                "billing_state" => $bill->firm->billingState['state_name'],
+                "billing_state_code" => $bill->firm['billing_state_code'],
+                "billing_pincode" => $bill->firm['billing_pincode'],
+                "billing_mobile_number" => $bill->firm['billing_mobile_number'],
+                "billing_landline_number" => $bill->firm['billing_landline_number'],
+                "billing_landline_number" => $bill->firm['billing_landline_number'],
+                
+                "id" => $bill['id'],
+                "invoice_no" => $bill['invoice_no'],
+                "invoiceYear" => $bill['invoiceYear'],
+                "taxable_amount" => number_format($bill['taxable_amount']),
+                "sgst_percentage" => number_format($bill['sgst_percentage'],2),
+                "sgst_amount" => number_format($bill['sgst_amount']),
+                "cgst_percentage" =>  number_format($bill['cgst_percentage'],2),
+                "cgst_amount" => number_format($bill['cgst_amount']),
+                "igst_percentage" =>  number_format($bill['igst_percentage'],2),
+                "igst_amount" => number_format($bill['igst_amount']),
+                "total_payable_amount" => number_format($bill['total_payable_amount']),
+                "created_at" => $bill['created_at'],
+                "product_detail" => $return_billdetail
+                ]);
+            }
+            
             public function nextInvoice()
             {
                 date_default_timezone_set('Asia/Kolkata');
@@ -285,13 +368,28 @@ class ReportController extends Controller
                 
                 return response()->json(['weeksale' => $retun_array]);
             }
-
+            
             public function checkInvoice($invoice, $invoiceYear){
                 $count = Bill::where('invoice_no',$invoice)->where('invoiceYear',$invoiceYear)->count();
                 if($count == 0){
                     return response()->json(['message' => 'proceed']);
                 }
                 return response()->json(['message' => 'invoice already exists']);
+            }
+            
+            public function allUniqueYears(){
+                $allInvoiceYear = Bill::select('invoiceYear')->distinct()->get();
+                $allChallanYear = challan::select('challanYear')->distinct()->get();
+                $arrayChallan = array();
+                $arrayInvoice = array();
+                foreach ($allInvoiceYear as $invoiceYear) {
+                    $arrayInvoice = $invoiceYear['invoiceYear'];
+                }
+                foreach ($allChallanYear as $challanYear) {
+                    $arrayChallan = $challanYear['challanYear'];
+                }                
+                return response()->json(array_merge($challanYear,$arrayInvoice));
+                
             }
         }
         

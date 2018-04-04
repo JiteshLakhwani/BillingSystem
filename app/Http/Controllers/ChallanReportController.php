@@ -167,6 +167,7 @@ class ChallanReportController extends Controller
                 "firm_id" => $challan['firm_id'],
                 "firm_name" => $challan->firm['name'],
                 "challan_no" => $challan['challan_no'],
+                "challanYear" => $challan['challanYear'],
                 "total_payable_amount" => $challan['total_payable_amount'],
                 "created_at" => $challan['created_at'],
                 "challandetail" => $return_challandetail);

@@ -51,6 +51,8 @@ Route::get('/weekSale','ReportController@weekSale')->middleware('myauth');
 Route::get('/firmName/{name}','ReportController@firmName')->middleware('myauth');
 Route::get('/checkInvoice/{invoice}/{invoiceYear}','ReportController@checkInvoice')->middleware('myauth');
 
+Route::get('/years','ReportController@allUniqueYears')->middleware('myauth');
+
 //Routes for admin related details
 Route::get('/userDetails','UserDetailController@show')->middleware('myauth');
 Route::patch('/userDetails/{id}','UserDetailController@update')->middleware('myauth');
