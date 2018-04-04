@@ -18,7 +18,7 @@ class CreateFirmTable extends Migration
             $table->string('name');
             $table->string('person_name');
             $table->string('gst_number')->unique()->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('shipping_address');
             $table->string('shipping_city');
             $table->integer('shipping_state_code');

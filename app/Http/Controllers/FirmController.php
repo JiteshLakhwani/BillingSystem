@@ -49,7 +49,6 @@ class FirmController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => 'required|string',
             "person_name" => 'required|string',
-            "email" => 'unique:firms',
             "billing_address" => 'required',
             "billing_city" => 'required|string',
             "billing_state_code" => 'required|integer',
