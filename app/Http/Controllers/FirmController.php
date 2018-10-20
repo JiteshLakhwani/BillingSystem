@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Repositories\FirmService;
+use App\Repositories\Services\FirmService;
 use \Response;
 use App\Firm;
 use \Validator;

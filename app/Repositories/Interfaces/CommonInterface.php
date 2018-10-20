@@ -1,7 +1,7 @@
 <?php
-namespace App\Repositories;
+namespace App\Repositories\Interfaces;
 
-interface FirmInterFace{
+interface CommonInterface{
 
     public function create($attributes);
     

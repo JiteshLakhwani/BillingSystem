@@ -4,9 +4,9 @@ namespace App\Repositories;
  
 use App\Firm;
 
-use App\Repositories\FirmInterface as firmInter; 
+use App\Repositories\Interfaces\CommonInterface as commonInterface; 
  
-class FirmRepository implements firmInter
+class FirmRepository implements commonInterface
 {
   
   protected $firm;
