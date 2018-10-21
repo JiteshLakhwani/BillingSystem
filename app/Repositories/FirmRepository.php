@@ -8,7 +8,6 @@ use App\Repositories\Interfaces\CommonInterface as commonInterface;
  
 class FirmRepository implements commonInterface
 {
-  
   protected $firm;
  
   public function __construct(Firm $firm)

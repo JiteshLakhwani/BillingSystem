@@ -24,12 +24,7 @@ class FirmController extends Controller
     */
     public function index()
     {
-        $firms = $this->firmService->index();
-        if($firms->count() == 0 )
-        {
-            return response()->json(["message" => "No data found"]);
-        }
-        return response()->json(["Firms"=>$firms],200);
+        return $this->firmService->index();
     }
     
     /**
@@ -88,12 +83,7 @@ class FirmController extends Controller
     */
     public function show($id)
     {            
-        $firm = $this->firmService->read($id);
-            if($firm->count() == 0 )
-            {
-                return response()->json(["message" => "No data found"]);
-            }
-        return response()->json($firm);
+        return $this->firmService->read($id);      
     }
   
     /**
@@ -119,17 +109,7 @@ class FirmController extends Controller
         if ($validator->fails()) {
             return response()->json(["message" => $validator->errors()->all()], 400);
         }           
-        $firm = $this->firmService->update($request, $id);
-
-        if($firm==1)
-        {
-            $firm = Firm::find($id);        
-            return Response::json($firm);
-        }
-        else
-        {
-            return response()->json(["message" => "Failed to update record"]);
-        }
+        return $this->firmService->update($request, $id);
     }
                     
     /**
@@ -140,20 +120,8 @@ class FirmController extends Controller
     */
     public function destroy($id)
     {
-      
-        $firm = $this->firmService->read($id);
-        if($firm == null)
-        {
-            return response()->json(["error"=>"Couldn't find record"]);
-        }
-        $this->firmService->delete($id);
-
-        $firm = $this->firmService->read($id);
-            if($firm==null)
-            {
-                return response()->json(["message"=>"Record deleted successfuly"]);
-            }
-        }
+        return $this->firmService->delete($id);  
+    }
                     
     public function lists()
     {    

@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Services;
 
-use App\Firm;
 use App\Repositories\FirmRepository;
 use Illuminate\Http\Request;
+use \Response;
 
 class FirmService
 {
@@ -15,33 +15,63 @@ class FirmService
     
     public function index()
     {
-        return $this->firm->all();
+        $firms = $this->firm->all();
+
+        if($firms->count() == 0 )
+        {
+            return response()->json(["message" => "No data found"]);
+        }
+        return response()->json(["Firms"=>$firms],200);
     }
     
     public function create(Request $request)
     {
         $attributes = $request->all();
         
-        $firm = $this->firm->create($attributes);
-
-        return $this->read($firm['id']);
+        return $this->firm->create($attributes);
     }
     public function read($id)
     {
-        return $this->firm->find($id);
+        $firm = $this->firm->find($id);
+
+        if($firm->count() == 0 )
+            {
+                return response()->json(["message" => "No data found"]);
+            }
+        return response()->json($firm);
     }
     
     public function update(Request $request, $id)
     {
         $attributes = $request->all();
         
-        return $this->firm->update($id, $attributes);
+        $firm = $this->firm->update($id, $attributes);
 
-    
+        if($firm==1)
+        {
+            $firm = $this->read($id);        
+            return Response::json($firm);
+        }
+        else
+        {
+            return response()->json(["message" => "Failed to update record"]);
+        }
     }
     
     public function delete($id)
     {
-        return $this->firm->delete($id);
+        $firm = $this->read($id);
+        if($firm == null)
+        {
+            return response()->json(["error"=>"Couldn't find record"]);
+        }
+
+        $this->firm->delete($id);
+
+        $firm = $this->read($id);
+            if($firm==null)
+            {
+                return response()->json(["message"=>"Record deleted successfuly"]);
+            }
     }
 }
