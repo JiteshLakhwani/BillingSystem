@@ -15,6 +15,8 @@ use App\Repositories\Interfaces\UserInterface;
 use App\Repositories\UserRepository;
 use App\Repositories\Interfaces\ProductInterface;
 use App\Repositories\ProductRepository;
+use App\Repositories\Interfaces\StateInterface;
+use App\Repositories\StateRepository;
 
 class CommonServiceProvider extends ServiceProvider{
 
@@ -26,6 +28,7 @@ class CommonServiceProvider extends ServiceProvider{
         $this->registerAdminFirmRepository();
         $this->registerUserRepository();
         $this->registerProductRepository();
+        $this->registerStateRepository();
     }
 
     public function registerFirmRepository(){
@@ -50,5 +53,9 @@ class CommonServiceProvider extends ServiceProvider{
 
     public function registerProductRepository(){
         $this->app->bind(ProductInterface::class, ProductRepository::class);
+    }
+
+    public function registerStateRepository(){
+        $this->app->bind(StateInterface::class, StateRepository::class);
     }
 }

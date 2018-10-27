@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use \Response;
