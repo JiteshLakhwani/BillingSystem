@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\BillDetail;
-use App\Repositories\Interfaces\CommonInterface as commonInterface; 
+use App\Repositories\Interfaces\BillDetailInterface as billDetailInterface; 
 
-class BillDetailRepository{
+class BillDetailRepository implements billDetailInterface{
 
     protected $billDetail;
 

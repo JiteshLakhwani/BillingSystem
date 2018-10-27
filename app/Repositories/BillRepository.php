@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Bill;
-use App\Repositories\Interfaces\CommonInterface as commonInterface; 
+use App\Repositories\Interfaces\BillInterface as billInterface; 
 
-class BillRepository implements commonInterface{
+class BillRepository implements billInterface{
 
     protected $bill;
 
@@ -35,5 +35,11 @@ class BillRepository implements commonInterface{
     public function delete($id){
 
         $this->bill->find($id)->delete();
+    }
+
+    public function getSortBill()
+    {
+
+        return $this->bill->orderBy('invoice_no','desc')->get();
     }
 }

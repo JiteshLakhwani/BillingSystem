@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
 // Addtional dependencies needed for token passing and to communication between two doamins
 
         Barryvdh\Cors\ServiceProvider::class,        
@@ -181,6 +182,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CommonServiceProvider::class,
 
     ],
 

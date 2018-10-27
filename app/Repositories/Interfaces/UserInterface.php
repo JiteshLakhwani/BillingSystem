@@ -1,15 +1,15 @@
 <?php
 namespace App\Repositories\Interfaces;
 
-interface CommonInterface{
+interface UserInterface{
 
     public function create($attributes);
-    
-    public function all();
-   
-    public function find($id);
-    
+        
     public function update($id, array $attributes);
 
     public function delete($id);
+
+    public function updatePassword(array $attributes);
+
+    public function find($id);
 }

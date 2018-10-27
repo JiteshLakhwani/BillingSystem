@@ -3,15 +3,17 @@
 namespace App\Repositories\Services;
 
 use Illuminate\Http\Request;
-use App\Repositories\BillRepository;
-use App\Repositories\BillDetailRepository;
+use App\Repositories\Interfaces\BillInterface;
+use App\Repositories\Interfaces\BillDetailInterface;
+use App\Http\Resources\BillResource;
 
 class BillService {
+    
     protected $bill;
 
     protected $billDetail;
 
-    public function __construct(BillRepository $bill, BillDetailRepository $billDetail){
+    public function __construct(BillInterface $bill, BillDetailInterface $billDetail){
 
         $this->bill = $bill;
 
@@ -30,28 +32,24 @@ class BillService {
 
             $billDetailAttributes[$i]['bill_id'] = $bill['id'];
 
-            $billDetails[$i] = $this->billDetail->create($billDetailAttributes[$i]);
+            $this->billDetail->create($billDetailAttributes[$i]);
         }
         
-        $returnBillAndDetails[0] = $bill;
-
-        $returnBillAndDetails[1] = $billDetails;
-
-        return $returnArray;
+        return new BillResource($bill);
     }
 
-    public function index(){
+    public function getAll(){
 
-        return $this->bill->all();
+        $allBills = $this->bill->getSortBill();
+
+        for($i = 0; $i < $allBills->count(); $i++){
+
+            $bills[$i] = new BillResource($allBills[$i]);
+        }
+
+        return $bills;
     }
-
-    public function update(Request $request, $id){
-
-        $attribute = $request->all();
-
-        return $this->bill->update($id, $attribute);
-    }
-
+    
     public function delete($id){
 
         $bill = $this->read($id);
@@ -67,11 +65,6 @@ class BillService {
         {
             return response()->json(["message"=>"Record deleted successfuly"]);
         }
-    }
-
-    public function read($id)
-    {
-        return $this->bill->find($id);
     }
 }
 

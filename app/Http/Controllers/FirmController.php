@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Repositories\Services\FirmService;
-use \Response;
-use App\Firm;
 use \Validator;
 class FirmController extends Controller
 {
@@ -51,27 +49,7 @@ class FirmController extends Controller
                 return response()->json(["message" => $validator->errors()->all()], 400);
             }
             
-         $firm = $this->firmService->create($request);
-
-        return response()->json(["name" => $firm['name'],
-        "person_name" =>$firm['person_name'],
-        "gst_number" =>$firm['gst_number'],
-        "email" =>$firm['email'],
-        "billing_address" =>$firm['billing_address'],
-        "billing_state_name" => $firm->billingState['state_name'],
-        "billing_state_code" => $firm['state_code'],
-        "billing_city" =>$firm['billing_city'],
-        "billing_pincode" =>$firm['billing_pincode'],
-        "billing_mobile_number" =>$firm['billing_mobile_number'],
-        "billing_mobile_number" =>$firm['billing_landline_number'],
-
-        "shipping_address" =>$firm['shipping_address'],
-        "shipping_state_name" => $firm->shippingState['state_name'],
-        "shipping_state_code" => $firm['shipping_state_code'],
-        "shipping_city" =>$firm['shipping_city'],
-        "shipping_pincode" =>$firm['shipping_pincode'],
-        "shipping_mobile_number" =>$firm['shipping_mobile_number'],
-        "shipping_mobile_number" =>$firm['shipping_landline_number']],200);
+        return $this->firmService->create($request);
     }
             
             
@@ -125,18 +103,7 @@ class FirmController extends Controller
                     
     public function lists()
     {    
-        if($this->firmService->index()->count() == 0){
-            return response()->json(["message" => "No Customer"]);
-        }
-        $firms = $this->firmService->index();
-        foreach($firms as $firm)
-            {
-                $response ['firms'][]= ['id' => $firm->id,
-                'firm_name' =>$firm->name,
-                'state_code'=>$firm->billing_state_code
-                ];
-            }
-    return response()->json($response,200);
+        return $this->firmService->listCustomer();
     }
 }
             

@@ -2,13 +2,14 @@
 
 namespace App\Repositories\Services;
 
-use App\Repositories\FirmRepository;
+use App\Repositories\Interfaces\FirmInterface;
 use Illuminate\Http\Request;
 use \Response;
+use App\Http\Resources\FirmResource;
 
 class FirmService
 {
-    public function __construct(FirmRepository $firm)
+    public function __construct(FirmInterface $firm)
     {
         $this->firm = $firm;
     }
@@ -28,7 +29,13 @@ class FirmService
     {
         $attributes = $request->all();
         
-        return $this->firm->create($attributes);
+        $firm = $this->firm->create($attributes);
+        if($firm == null){
+            return response()->json(["message" => "Failed to update record"]);
+        }
+
+        return new FirmResource($firm);
+
     }
     public function read($id)
     {
@@ -38,7 +45,7 @@ class FirmService
             {
                 return response()->json(["message" => "No data found"]);
             }
-        return response()->json($firm);
+        return new FirmResource($firm);
     }
     
     public function update(Request $request, $id)
@@ -47,15 +54,12 @@ class FirmService
         
         $firm = $this->firm->update($id, $attributes);
 
-        if($firm==1)
+        if($firm != null)
         {
             $firm = $this->read($id);        
-            return Response::json($firm);
+            return new FirmResource($firm);
         }
-        else
-        {
-            return response()->json(["message" => "Failed to update record"]);
-        }
+        return response()->json(["message" => "Failed to update record"]);
     }
     
     public function delete($id)
@@ -73,5 +77,21 @@ class FirmService
             {
                 return response()->json(["message"=>"Record deleted successfuly"]);
             }
+    }
+
+    public function listCustomer()
+    {        
+        if($this->firm->all()->count() == 0){
+            return response()->json(["message" => "No Customer"]);
+        }
+        $firms = $this->firm->all();
+        foreach($firms as $firm)
+            {
+                $response ['firms'][]= ['id' => $firm->id,
+                'firm_name' =>$firm->name,
+                'state_code'=>$firm->billing_state_code
+                ];
+            }
+        return response()->json($response,200);
     }
 }
