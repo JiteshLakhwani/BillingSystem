@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Repositories\Services\FirmService;
-use \Validator;
+use App\Http\CommonValidator\RequestValidator;
 class FirmController extends Controller
 {
+    protected $requestValidator;
+
     protected $firmService;
     
-    public function __construct(FirmService $firmService){
+    public function __construct(FirmService $firmService, RequestValidator $requestValidator){
+
         $this->firmService = $firmService;
+
+        $this->requestValidator = $requestValidator;
     }
     
     /**
@@ -34,7 +39,7 @@ class FirmController extends Controller
     public function store(Request $request)
     {
         
-        $validator = Validator::make($request->all(), [
+        $validate = $this->$requestValidator->validateRequest($request, [
             "name" => 'required|string',
             "person_name" => 'required|string',
             "billing_address" => 'required',
@@ -45,13 +50,13 @@ class FirmController extends Controller
             "shipping_state_code" => 'required|integer',
             ]);
             
-            if ($validator->fails()) {
-                return response()->json(["message" => $validator->errors()->all()], 400);
-            }
-            
-        return $this->firmService->create($request);
+        if ($validate == "validatePass") {
+
+            return $this->firmService->create($request);
+        }
+
+        return $validate;
     }
-            
             
     /**
     * Display the specified resource.
@@ -73,7 +78,7 @@ class FirmController extends Controller
     */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $validate = $this->$requestValidator->validateRequest($request, [
             "name" => 'required|string|max:191',
             "person_name" => 'required|string|max:191',
             "billing_address" => 'required|max:191',
@@ -84,10 +89,12 @@ class FirmController extends Controller
             "shipping_state_code" => 'required|integer'
         ]);
         
-        if ($validator->fails()) {
-            return response()->json(["message" => $validator->errors()->all()], 400);
+        if ($validate == "validatePass") {
+
+            return $this->firmService->update($request, $id);
         }           
-        return $this->firmService->update($request, $id);
+        
+        return $validate;
     }
                     
     /**

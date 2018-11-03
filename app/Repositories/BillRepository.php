@@ -42,4 +42,19 @@ class BillRepository implements billInterface{
 
         return $this->bill->orderBy('invoice_no','desc')->get();
     }
+
+    public function getBetweenTwoDates($startDate, $endDate){
+
+        return $this->bill->whereBetween('created_at', [$startDate, $endDate])->get();
+    }
+
+    public function getFiscalYearReport($year) {
+
+        return $this->bill->where('invoiceYear',$year)->get();
+    }
+
+    public function getReportByInvoiceNumber($invoiceNumber, $invoiceYear) {
+
+        return $this->bill->where('invoice_no',$invoiceNumber)->where('invoiceYear',$invoiceYear)->get();
+    }
 }

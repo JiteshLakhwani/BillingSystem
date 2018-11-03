@@ -18,6 +18,11 @@ class ProductService {
 
         $allProducts = $this->productInterface->all();
 
+        if(count($allProducts) == 0)
+        {
+            return response()->json("",204);
+        }
+
         foreach($allProducts as $product) {
 
             $products['products'][] = new ProductResource($product);
@@ -47,7 +52,7 @@ class ProductService {
 
         if($this->productInterface->find($id) == null){
 
-            return response()->json(["error"=>"Couldn't find record"]);
+            return response()->json("",204);
          }
 
         $this->productInterface->delete($id);

@@ -50,4 +50,9 @@ class FirmRepository implements firmInterface
    
     return $this->firm->listCustomer();
   }
+
+  public function getReportByFirmName($firmName){
+
+    return $this->firm->where('name',$firmName)->get();
+  }
 }

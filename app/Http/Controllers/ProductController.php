@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use \Response;
-use \Validator;
+use App\Http\CommonValidator\RequestValidator;
 use App\Repositories\Services\ProductService;
 
 class ProductController extends Controller
 {
     protected $productService;
 
-    public function __construct(ProductService $productService){
+    protected $requestValidator;
+
+    public function __construct(ProductService $productService, RequestValidator $requestValidator){
 
         $this->productService = $productService;
+
+        $this->requestValidator = $requestValidator;
     }
 
     /**
@@ -38,20 +41,19 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-            $validator = Validator::make($request->all(), [
-
+        $validate = $this->requestValidator->validateRequest($request, [
                 "product_name"=> 'required',
                 "hsn_code"=> 'required|string',
                 "product_price" => 'required|integer'
             ]);
 
-            if ($validator->fails()) {
-                return response()->json(["message" => $validator->errors()->all()], 400);
-            }
+        if($validate == "validatePass"){
+        
+            return  $this->productService->create($request);
+        }
 
-           return  $this->productService->create($request);
+        return $validate;
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -63,18 +65,18 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
 
-            $validator = Validator::make($request->all(), [
-
+        $validate = $this->requestValidator->validateRequest($request, [
                 "product_name"=> 'required',
                 "hsn_code"=> 'required|string',
                 "product_price" => 'required|integer'
             ]);
 
-            if ($validator->fails()) {
-                return response()->json(["message" => $validator->errors()->all()], 400);
-            }
-
-           return $this->productService->update($id, $request);            
+        if($validate == "validatePass"){
+            
+            return $this->productService->update($id, $request); 
+        }
+        
+        return $validate;
     }
 
     /**

@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use \Response;
 use App\Repositories\Services\BillService;
-use \Validator;
+use App\Http\CommonValidator\RequestValidator;
 
 class BillController extends Controller
 {
+    protected $requestValidator;
+
     protected $billService;
     
-    public function __construct(BillService $billService){
+    public function __construct(BillService $billService, RequestValidator $requestValidator){
+
+        $this->requestValidator = $requestValidator;
         
         $this->billService = $billService;
     }
@@ -34,21 +37,23 @@ class BillController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-    public function store(Request $request){
-            $validator = Validator::make($request->all(), [
-                "user_id" => 'required',
-                "firm_id" => 'required',
-                "invoice_no" => 'required',
-                "invoiceYear" => 'required',
-                "taxable_amount" => 'required',
-                "total_payable_amount" => "required"
-                ]);
+    public function store(Request $request) {
+
+        $validate = $this->requestValidator->validateRequest($request, [
+            "user_id" => 'required',
+            "firm_id" => 'required',
+            "invoice_no" => 'required',
+            "invoiceYear" => 'required',
+            "taxable_amount" => 'required',
+            "total_payable_amount" => "required"
+        ]);
                 
-                if ($validator->fails()) {
-                    return response()->json(["message" => $validator->errors()->all()], 400);
-                }
-                
-                return $this->billService->create($request);
+        if ($validate == "validatePass") {
+        
+            return $this->billService->create($request);
+        }
+        
+        return $validate;
     }               
     
     /**
@@ -57,7 +62,8 @@ class BillController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function destroy($id){              
+    public function destroy($id){
+        
         return $this->billService->delete($id);
     }     
 }

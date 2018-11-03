@@ -19,27 +19,18 @@ Route::get('/token', 'AuthenticateController@token');
 
 
 
-Route::middleware(['myauth'])->group(function(){
+Route::middleware(['authenticate'])->group(function(){
    
     //Route for customer
-    Route::get('/getCustomer','FirmController@index');
-    Route::get('/showCustomer/{id}','FirmController@show');
-    Route::post('/createCustomer','FirmController@store');
-    Route::patch('/updateCustomer/{id}','FirmController@update');
-    Route::delete('/deleteCustomer/{id}','FirmController@destroy');
-
+    Route::apiResource('customers', 'FirmController');
     //This route is created to show drop down list on frontend 
     Route::get('/listCustomer','FirmController@lists');
 
     //API related to bill creation viewing and deletion
-    Route::get('/getBills','BillController@index');
-    Route::post('/createBill','BillController@store');
-    Route::delete('/deleteBill/{id}','BillController@destroy');
+    Route::apiResource('bills','BillController');
 
     // API related to challan
-    Route::post('/createChallan','ChallanController@store');
-    Route::delete('/deleteChallan/{id}','ChallanController@destroy');
-    Route::get('/getChallans','ChallanController@index');
+    Route::apiResource('challans', 'ChallanController');
 
     // API related to reports challan
     Route::get('/getChallan/{challan_no}/{challanYear}','ChallanReportController@singleChallan');
@@ -59,28 +50,16 @@ Route::middleware(['myauth'])->group(function(){
     Route::get('/years','ReportController@allUniqueYears');
 
     //Routes for admin related details
-    Route::get('/userDetails','UserDetailController@show');
-    Route::patch('/userDetails/{id}','UserDetailController@update');
-    Route::delete('/userDetails/{id}','UserDetailController@destroy');
-    Route::post('/userDetails/create','UserDetailController@create');
+    Route::apiResource('userdetails', 'UserDetailController');
     Route::patch('/userDetail/updatePassword','UserDetailController@updatePassword');
 
     // Routes for states
-    Route::get('/getStates','StateController@index');
-    Route::post('/addState','StateController@store');
-    Route::patch('/updateState/{state_code}','StateController@update');
-    Route::delete('/deleteState/{state_code}', 'StateController@destroy');
-
+    Route::apiResource('states', 'StateController');
 
     //Routes for products
-    Route::get('/getProducts','ProductController@index');
-    Route::post('/addProduct','ProductController@store');
-    Route::patch('/updateProduct/{id}','ProductController@update');
-    Route::delete('/deleteProduct/{id}', 'ProductController@destroy');
+    Route::apiResource('products', 'ProductController');
 
 });
-
-
 
 //Testing Route
 Route::get('/testing','ReportController@weekSale');

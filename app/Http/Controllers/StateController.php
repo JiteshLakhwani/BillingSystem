@@ -4,26 +4,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use \Response;
-use \Validator;
+use App\Http\CommonValidator\RequestValidator;
 use App\Repositories\Services\StateService;
 
 class StateController extends Controller{
-    protected $StateService;
+    
+    protected $stateService;
 
-    public function __construct(StateService $StateService){
+    protected $requestValidator;
 
-        $this->StateService = $StateService;
+    /**
+     * Create instances of 2 class stateService and RequestValidator.
+     *
+     * @param  App\Repositories\Services\stateService  $stateService
+     * @param @param  App\Http\CommonValidator\RequestValidator  $requestValidator
+     * 
+     */
+
+    public function __construct(StateService $stateService, RequestValidator $requestValidator){
+
+        $this->stateService = $stateService;
+
+        $this->requestValidator = $requestValidator;
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the all the States Available.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(){
 
-        return $this->StateService->getAll();
+        return $this->stateService->getAll();
     }
 
     /**
@@ -34,18 +46,20 @@ class StateController extends Controller{
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+
+        $validate = $this->requestValidator->validateRequest($request, [
 
             "state_code"=> 'required|integer|unique:states',
             "state_name"=> 'required|string'
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(["message" => $validator->errors()->all()], 400);
+        
+        if($validate == "validatePass"){
+            
+            return  $this->stateService->create($request);
         }
-           return  $this->StateService->create($request);
-    }
 
+        return $validate;
+    }
 
     /**
      * Update the specified resource in storage.
@@ -56,17 +70,18 @@ class StateController extends Controller{
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $validate = $this->requestValidator->validateRequest($request, [
 
-            "state_code"=> 'required',
+            "state_code"=> 'required|integer|unique:states',
             "state_name"=> 'required|string'
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(["message" => $validator->errors()->all()], 400);
+        
+        if($validate == "validatePass"){
+            
+            return $this->stateService->update($id, $request);
         }
 
-           return $this->StateService->update($id, $request);            
+        return $validate;            
     }
 
     /**
@@ -77,6 +92,6 @@ class StateController extends Controller{
      */
     public function destroy($id)
     {
-        return $this->StateService->delete($id);
+        return $this->stateService->delete($id);
     }
 }

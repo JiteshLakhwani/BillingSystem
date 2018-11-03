@@ -42,6 +42,11 @@ class BillService {
 
         $allBills = $this->bill->getSortBill();
 
+        if(count($allBills) == 0)
+        {
+            return response()->json("",204);
+        }
+
         for($i = 0; $i < $allBills->count(); $i++){
 
             $bills[$i] = new BillResource($allBills[$i]);

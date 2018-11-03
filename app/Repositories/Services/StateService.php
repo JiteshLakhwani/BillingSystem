@@ -18,6 +18,11 @@ class StateService{
 
         $allstates = $this->stateInterface->all();
 
+        if(count($allstates) == 0){
+
+            return response()->json("",204);
+        }
+
         foreach($allstates as $state) {
 
             $states['states'][] = new StateResource($state);
@@ -43,7 +48,6 @@ class StateService{
     }
 
     public function delete($id){
-
 
         if($this->stateInterface->find($id) == null){
 

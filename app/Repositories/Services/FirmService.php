@@ -20,7 +20,7 @@ class FirmService
 
         if($firms->count() == 0 )
         {
-            return response()->json(["message" => "No data found"]);
+            return response()->json("",204);
         }
         return response()->json(["Firms"=>$firms],200);
     }
@@ -30,7 +30,9 @@ class FirmService
         $attributes = $request->all();
         
         $firm = $this->firm->create($attributes);
+
         if($firm == null){
+
             return response()->json(["message" => "Failed to update record"]);
         }
 
@@ -41,9 +43,9 @@ class FirmService
     {
         $firm = $this->firm->find($id);
 
-        if($firm->count() == 0 )
+        if(count($firm) == 0 )
             {
-                return response()->json(["message" => "No data found"]);
+                return response()->json("",204);
             }
         return new FirmResource($firm);
     }
@@ -67,7 +69,7 @@ class FirmService
         $firm = $this->read($id);
         if($firm == null)
         {
-            return response()->json(["error"=>"Couldn't find record"]);
+            return response()->json("",204);
         }
 
         $this->firm->delete($id);
@@ -75,14 +77,15 @@ class FirmService
         $firm = $this->read($id);
             if($firm==null)
             {
-                return response()->json(["message"=>"Record deleted successfuly"]);
+                return response()->json(["message"=>"Record deleted successfuly"], 200);
             }
     }
 
     public function listCustomer()
     {        
         if($this->firm->all()->count() == 0){
-            return response()->json(["message" => "No Customer"]);
+
+            return response()->json("",204);
         }
         $firms = $this->firm->all();
         foreach($firms as $firm)

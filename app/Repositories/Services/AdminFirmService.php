@@ -24,6 +24,11 @@ class AdminFirmService {
 
         $user = $request->route()->parameter('user');
 
+        // if(count($user) == 0){
+
+        //     return response()->json("", 204);
+        // }
+
         return new UserResource($user);
     }
 

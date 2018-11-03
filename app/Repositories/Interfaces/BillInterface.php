@@ -15,4 +15,10 @@ interface BillInterface{
     public function delete($id);
 
     public function getSortBill();
+
+    public function getBetweenTwoDates($startDate, $endDate);
+
+    public function getFiscalYearReport($year);
+
+    public function getReportByInvoiceNumber($invoiceNumber, $invoiceYear);
 }
