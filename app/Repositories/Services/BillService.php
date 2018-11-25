@@ -47,9 +47,9 @@ class BillService {
             return response()->json("",204);
         }
 
-        for($i = 0; $i < $allBills->count(); $i++){
+        foreach($allBills as $bill){
 
-            $bills[$i] = new BillResource($allBills[$i]);
+            $bills[$i] = new BillResource($bill);
         }
 
         return $bills;

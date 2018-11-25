@@ -42,5 +42,4 @@ class AuthenticateController extends Controller
         }
         return $this->response->withArray(['token'=>$token]);
     }
-    
 }

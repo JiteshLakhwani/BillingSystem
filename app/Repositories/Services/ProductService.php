@@ -1,20 +1,27 @@
 <?php
 
 namespace App\Repositories\Services;
-
+use Illuminate\Cache\Repository as CacheRepository;
 use App\Repositories\Interfaces\ProductInterface;
 use App\Http\Resources\ProductResource;
+use Illuminate\Support\Facades\Redis;
 
 class ProductService {
 
     protected $productInterface;
 
-    public function __construct(ProductInterface $productInterface) {
+    protected $cache;
+
+    public function __construct(ProductInterface $productInterface, CacheRepository $cache) {
 
         $this->productInterface = $productInterface;
+
+        $this->cache = $cache;
     }
 
     public function getAll() {
+
+        // Redis::set('name', 'Taylor');
 
         $allProducts = $this->productInterface->all();
 
@@ -23,10 +30,17 @@ class ProductService {
             return response()->json("",204);
         }
 
+        if($this->cache->has('productList')){
+
+            return $this->cache->get('productList');
+        }
+
         foreach($allProducts as $product) {
 
             $products['products'][] = new ProductResource($product);
         }
+
+        $this->cache->forever('productList',$products);
 
         return $products;
     }
@@ -34,6 +48,9 @@ class ProductService {
     public function create($request) {
 
         $attrbiutes = $request->all();
+
+        $this->cache->forget('productList');
+
         return new ProductResource($this->productInterface->create($attrbiutes));
     }
 
@@ -42,6 +59,8 @@ class ProductService {
         $attrbiutes = $request->all();
 
         if($this->productInterface->update($id, $attrbiutes) == true){
+
+            $this->cache->forget('productList');
 
             return new ProductResource ($this->productInterface->find($id));
         }
@@ -58,6 +77,8 @@ class ProductService {
         $this->productInterface->delete($id);
 
          if($this->productInterface->find($id) == null){
+
+            $this->cache->forget('productList');
 
             return response()->json(["message"=>"Record deleted successfuly"]);
          }

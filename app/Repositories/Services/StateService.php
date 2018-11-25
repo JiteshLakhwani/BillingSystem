@@ -45,6 +45,8 @@ class StateService{
 
             return new StateResource ($this->stateInterface->find($request->state_code));
         }
+
+        
     }
 
     public function delete($id){
