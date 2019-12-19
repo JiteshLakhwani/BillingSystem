@@ -23,8 +23,6 @@ Route::middleware(['authenticate'])->group(function(){
    
     //Route for customer
     Route::apiResource('customers', 'FirmController');
-    //This route is created to show drop down list on frontend 
-    Route::get('/listCustomer','FirmController@lists');
 
     //API related to bill creation viewing and deletion
     Route::apiResource('bills','BillController');

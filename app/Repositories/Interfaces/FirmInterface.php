@@ -13,7 +13,5 @@ interface FirmInterface{
 
     public function delete($id);
 
-    public function listCustomer();
-
     public function getReportByFirmName($firmName);
 }

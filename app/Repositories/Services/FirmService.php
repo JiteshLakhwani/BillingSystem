@@ -80,21 +80,4 @@ class FirmService
                 return response()->json(["message"=>"Record deleted successfuly"], 200);
             }
     }
-
-    public function listCustomer()
-    {        
-        if($this->firm->all()->count() == 0){
-
-            return response()->json("",204);
-        }
-        $firms = $this->firm->all();
-        foreach($firms as $firm)
-            {
-                $response ['firms'][]= ['id' => $firm->id,
-                'firm_name' =>$firm->name,
-                'state_code'=>$firm->billing_state_code
-                ];
-            }
-        return response()->json($response,200);
-    }
 }

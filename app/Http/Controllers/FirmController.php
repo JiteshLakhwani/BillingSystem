@@ -107,10 +107,5 @@ class FirmController extends Controller
     {
         return $this->firmService->delete($id);  
     }
-                    
-    public function lists()
-    {    
-        return $this->firmService->listCustomer();
-    }
 }
             

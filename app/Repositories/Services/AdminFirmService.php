@@ -5,7 +5,7 @@ namespace App\Repositories\Services;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\AdminFirmInterface;
 use App\Repositories\Interfaces\UserInterface;
-use App\http\Resources\UserResource;
+use App\Http\Resources\UserResource;
 
 class AdminFirmService {
 
