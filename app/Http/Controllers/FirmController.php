@@ -39,7 +39,7 @@ class FirmController extends Controller
     public function store(Request $request)
     {
         
-        $validate = $this->$requestValidator->validateRequest($request, [
+        $validate = $this->requestValidator->validateRequest($request, [
             "name" => 'required|string',
             "person_name" => 'required|string',
             "billing_address" => 'required',
@@ -78,7 +78,7 @@ class FirmController extends Controller
     */
     public function update(Request $request, $id)
     {
-        $validate = $this->$requestValidator->validateRequest($request, [
+        $validate = $this->requestValidator->validateRequest($request, [
             "name" => 'required|string|max:191',
             "person_name" => 'required|string|max:191',
             "billing_address" => 'required|max:191',

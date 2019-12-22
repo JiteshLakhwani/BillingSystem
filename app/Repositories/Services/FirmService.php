@@ -22,7 +22,7 @@ class FirmService
         {
             return response()->json("",204);
         }
-        return response()->json(["Firms"=>$firms],200);
+        return response()->json($firms,200);
     }
     
     public function create(Request $request)

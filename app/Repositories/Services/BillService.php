@@ -40,6 +40,8 @@ class BillService {
 
     public function getAll(){
 
+        $i = 0;
+
         $allBills = $this->bill->getSortBill();
 
         if(count($allBills) == 0)
@@ -50,6 +52,7 @@ class BillService {
         foreach($allBills as $bill){
 
             $bills[$i] = new BillResource($bill);
+            $i +=1;
         }
 
         return $bills;
