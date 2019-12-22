@@ -43,7 +43,7 @@ class FirmService
     {
         $firm = $this->firm->find($id);
 
-        if(count($firm) == 0 )
+        if($firm == null)
             {
                 return response()->json("",204);
             }
@@ -59,7 +59,8 @@ class FirmService
         if($firm != null)
         {
             $firm = $this->read($id);        
-            return new FirmResource($firm);
+            
+            return response()->json($firm, 200);
         }
         return response()->json(["message" => "Failed to update record"]);
     }
