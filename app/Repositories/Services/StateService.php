@@ -16,19 +16,14 @@ class StateService{
 
     public function getAll() {
 
-        $allstates = $this->stateInterface->all();
+        $allStates = $this->stateInterface->all();
 
-        if(count($allstates) == 0){
+        if(count($allStates) == 0){
 
             return response()->json("",204);
         }
 
-        foreach($allstates as $state) {
-
-            $states['states'][] = new StateResource($state);
-        }
-
-        return $states;
+        return response()->json($allStates,200);
     }
 
     public function create($request) {
