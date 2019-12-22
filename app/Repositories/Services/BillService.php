@@ -60,7 +60,7 @@ class BillService {
     
     public function delete($id){
 
-        $bill = $this->read($id);
+        $bill = $this->bill->find($id);
         if($bill == null)
             {
                 return response()->json(["error"=>"Couldn't find record"]);
@@ -68,11 +68,9 @@ class BillService {
 
         $this->bill->delete($id);
 
-        $bill = $this->read($id);
-        if($bill==null)
-        {
-            return response()->json(["message"=>"Record deleted successfuly"]);
-        }
+        $bill = $this->bill->find($id);
+        
+        return response()->json("", 200);
     }
 }
 

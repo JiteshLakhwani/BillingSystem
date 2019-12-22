@@ -87,7 +87,8 @@ class FirmController extends Controller
             "billing_state_code" => 'required|integer',
             "shipping_address" => 'required|max:191',
             "shipping_city" => 'required|string|max:191',
-            "shipping_state_code" => 'required|integer'
+            "shipping_state_code" => 'required|integer',
+            "gst_number" => 'unique:firms'
         ]);
         
         if ($validate == "validatePass") {
