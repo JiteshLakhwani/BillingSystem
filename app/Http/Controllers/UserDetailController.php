@@ -75,21 +75,20 @@ class UserDetailController extends Controller
         return $validate;
     }
 
-    public function updatePassword(Request $request)
-    {
+    public function updatePassword(Request $request){
         $user = $request->route()->parameter('user');
 
         $pass = User::where("email", $user['email'])->update([
             "password" => bcrypt($request->password)
-    ]);
+        ]);
 
-    if($pass == 1) {
+        if($pass == 1) {
 
-        return response()->json('Password successfully updated');
-        }
-    else{
+            return response()->json('Password successfully updated');
+            }
+        else{
 
-        return response()->json('Password not updated');
-        }
+            return response()->json('Password not updated');
+            }
     }
 }

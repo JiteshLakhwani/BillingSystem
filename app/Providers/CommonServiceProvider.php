@@ -17,6 +17,10 @@ use App\Repositories\Interfaces\ProductInterface;
 use App\Repositories\ProductRepository;
 use App\Repositories\Interfaces\StateInterface;
 use App\Repositories\StateRepository;
+use App\Repositories\Interfaces\ChallanInterface;
+use App\Repositories\ChallanRepository;
+use App\Repositories\Interfaces\ChallanDetailInterface;
+use App\Repositories\ChallanDetailRepository;
 
 class CommonServiceProvider extends ServiceProvider{
 
@@ -29,6 +33,8 @@ class CommonServiceProvider extends ServiceProvider{
         $this->registerUserRepository();
         $this->registerProductRepository();
         $this->registerStateRepository();
+        $this->registerChallanRepository();
+        $this->registerChallanDetailRepository();
     }
 
     public function registerFirmRepository(){
@@ -57,5 +63,14 @@ class CommonServiceProvider extends ServiceProvider{
 
     public function registerStateRepository(){
         $this->app->bind(StateInterface::class, StateRepository::class);
+    }
+
+    public function registerChallanRepository(){
+
+        $this->app->bind(ChallanInterface::class, ChallanRepository::class);
+    }
+
+    public function registerChallanDetailRepository(){
+        $this->app->bind(ChallanDetailInterface::class, ChallanDetailRepository::class);
     }
 }
