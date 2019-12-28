@@ -86,7 +86,7 @@ $return_challandetail[] = array(
 
         if(count($challans) == 0 )
             {
-                return response()->json(["message" => "No data found"]);
+                return response()->json("", 204);
             }
 
         $return_challan = array();

@@ -21,8 +21,6 @@ class ProductService {
 
     public function getAll() {
 
-        // Redis::set('name', 'Taylor');
-
         $allProducts = $this->productInterface->all();
 
         if(count($allProducts) == 0)
@@ -30,26 +28,12 @@ class ProductService {
             return response()->json("",204);
         }
 
-        if($this->cache->has('productList')){
-
-            return $this->cache->get('productList');
-        }
-
-        foreach($allProducts as $product) {
-
-            $products['products'][] = new ProductResource($product);
-        }
-
-        $this->cache->forever('productList',$products);
-
-        return $products;
+        return response()->json($allProducts,200);
     }
 
     public function create($request) {
 
         $attrbiutes = $request->all();
-
-        $this->cache->forget('productList');
 
         return new ProductResource($this->productInterface->create($attrbiutes));
     }
@@ -60,7 +44,7 @@ class ProductService {
 
         if($this->productInterface->update($id, $attrbiutes) == true){
 
-            $this->cache->forget('productList');
+
 
             return new ProductResource ($this->productInterface->find($id));
         }

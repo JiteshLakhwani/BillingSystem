@@ -73,7 +73,7 @@ class AdminFirmService {
     public function getAdminFirmArray($request){
 
         return array(
-            "name" => $request->name,
+            "name" => $request->firmName,
             "email" => $request->email,
             "gst_number" => $request->gst_number,
             "address" => $request->address,

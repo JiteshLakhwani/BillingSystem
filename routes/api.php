@@ -27,6 +27,18 @@ Route::middleware(['authenticate'])->group(function(){
     //API related to bill creation viewing and deletion
     Route::apiResource('bills','BillController');
 
+    // Routes for states
+    Route::apiResource('states', 'StateController');
+
+    //Routes for products
+    Route::apiResource('products', 'ProductController');
+
+    //Routes for admin related details
+    Route::apiResource('userdetails', 'UserDetailController');
+    Route::patch('/userDetail/updatePassword','UserDetailController@updatePassword');
+
+
+    
     // API related to challan
     Route::apiResource('challans', 'ChallanController');
 
@@ -47,15 +59,6 @@ Route::middleware(['authenticate'])->group(function(){
 
     Route::get('/years','ReportController@allUniqueYears');
 
-    //Routes for admin related details
-    Route::apiResource('userdetails', 'UserDetailController');
-    Route::patch('/userDetail/updatePassword','UserDetailController@updatePassword');
-
-    // Routes for states
-    Route::apiResource('states', 'StateController');
-
-    //Routes for products
-    Route::apiResource('products', 'ProductController');
 
 });
 

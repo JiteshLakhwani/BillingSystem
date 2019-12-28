@@ -55,7 +55,7 @@ class BillService {
             $i +=1;
         }
 
-        return $bills;
+        return response()->json($bills,200);
     }
     
     public function delete($id){

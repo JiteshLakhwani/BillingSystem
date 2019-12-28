@@ -38,10 +38,8 @@ class StateService{
 
         if($this->stateInterface->update($id, $attrbiutes) == true){
 
-            return new StateResource ($this->stateInterface->find($request->state_code));
+            return new StateResource ($this->stateInterface->find($id));
         }
-
-        
     }
 
     public function delete($id){

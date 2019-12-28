@@ -37,7 +37,7 @@ class UserDetailController extends Controller
             "username" => 'required|string',
             "email" => 'required|email|max:255',
 
-            "name" => 'required|string',
+            "firmName" => 'required|string',
             "gst_number" => 'required|min:15|max:15',
             "address" => 'required',
             "cityname" => 'required|string',

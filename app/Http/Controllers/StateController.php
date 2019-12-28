@@ -72,7 +72,6 @@ class StateController extends Controller{
     {
         $validate = $this->requestValidator->validateRequest($request, [
 
-            "state_code"=> 'required|integer|unique:states',
             "state_name"=> 'required|string'
         ]);
         
