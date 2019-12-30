@@ -22,10 +22,11 @@ class ChallanService {
     public function getAll(){
 
         $i = 0;
+        $allChallans = array();
 
         $allChallans = $this->challan->all();
 
-        if(count($allChallans) == 0)
+        if(empty($allChallans))
         {
             return response()->json("",204);
         }

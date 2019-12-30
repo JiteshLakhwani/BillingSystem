@@ -155,7 +155,7 @@ class ReportController extends Controller
         $count = Bill::where('invoice_no',$invoice)->where('invoiceYear',$invoiceYear)->count();
         if($count == 0){
     
-            return response()->json(['message' => 'proceed']);
+            return response()->json(['message' => 'Invoice number doen\'t exists']);
         }
         return response()->json(['message' => 'invoice already exists']);
     }
