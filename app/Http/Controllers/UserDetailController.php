@@ -69,7 +69,7 @@ class UserDetailController extends Controller
 
         if ($validate == "validatePass") {
 
-            return $this->adminFirmService->create($request->only(['name', 'email', 'password']));
+            return $this->adminFirmService->create($request->only(['name', 'email', 'password', 'adminfirm_id']));
         }
         
         return $validate;

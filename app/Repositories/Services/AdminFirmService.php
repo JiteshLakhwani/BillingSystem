@@ -66,7 +66,8 @@ class AdminFirmService {
         return response()->json([
             "name" => $request['name'],
             "email" => $request['email'],
-            "password" => $request['password']
+            "password" => $request['password'],
+            "adminfirm_id" => $request['adminfirm_id']
         ]);
     }
 
