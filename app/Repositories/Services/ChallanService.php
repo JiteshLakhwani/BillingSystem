@@ -31,12 +31,6 @@ class ChallanService {
             return response()->json("",204);
         }
 
-        // foreach($allChallans as $challan){
-
-        //     $challans[$i] = new ChallanResource($challan);
-        //     $i +=1;
-        // }
-
         return response()->json($allChallans,200);
     }
 
