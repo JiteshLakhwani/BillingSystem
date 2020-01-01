@@ -40,7 +40,7 @@ class ChallanService {
         
         $challan = $this->challan->create($attribute);
 
-        $challanDetailAttributes = $request->product_detail;
+        $challanDetailAttributes = $request->challan_detail;
 
         for ($i = 0; $i < count($challanDetailAttributes); $i++) {
 
