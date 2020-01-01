@@ -62,20 +62,19 @@ class ReportController extends Controller
         
         date_default_timezone_set('Asia/Kolkata');
         if(date("m") <= "03"){
+
             $fullCurrentYear = date("Y"); //2018
-            $currentYear = date("y"); //18
+           // $currentYear = date("y"); //18
             $previousYear = $fullCurrentYear - 1; //2017
-            $year = $previousYear."-".$currentYear; //2017-18
-                    
+            $year = $previousYear."-".$fullCurrentYear; //2017-18        
         }
                 
         else{
                     
             $fullCurrentYear = date("Y"); 
-            $currentYear = date("y");
-            $nextYear = $currentYear + 1;
-            $year = $fullCurrentYear."-".$nextYear;
-                    
+            // $currentYear = date("y");
+            $nextYear = $fullCurrentYear + 1;
+            $year = $fullCurrentYear."-".$nextYear;     
         }
         $count = Bill::get()->where('invoiceYear','=',$year)->count();
             
