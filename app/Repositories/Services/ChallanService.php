@@ -23,15 +23,25 @@ class ChallanService {
 
         $i = 0;
         $allChallans = array();
+        $challans = array();
 
         $allChallans = $this->challan->all();
+
 
         if(empty($allChallans))
         {
             return response()->json("",204);
         }
 
-        return response()->json($allChallans,200);
+        foreach($allChallans as $challan){
+
+            $challans[$i] = new ChallanResource($challan);
+
+            $i +=1;
+        }
+
+
+        return response()->json($challans,200);
     }
 
     public function store(Request $request){
