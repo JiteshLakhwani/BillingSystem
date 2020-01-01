@@ -24,7 +24,7 @@ class ChallanResource extends Resource
             "challanYear" => $this->challanYear,
             "total_payable_amount" => $this->total_payable_amount,
             "created_at" => $this->created_at,
-            "product_detail" => $this->challandetail
+            "challan_detail" => $this->challandetail
         ];
     }
 }
