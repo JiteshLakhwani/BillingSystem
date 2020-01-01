@@ -37,7 +37,6 @@ class FirmService
         }
 
         return new FirmResource($firm);
-
     }
     public function read($id)
     {
