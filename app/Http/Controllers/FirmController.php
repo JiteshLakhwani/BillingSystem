@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Validation\Rule;
 use App\Repositories\Services\FirmService;
 use App\Http\CommonValidator\RequestValidator;
 class FirmController extends Controller
@@ -88,7 +89,7 @@ class FirmController extends Controller
             "shipping_address" => 'required|max:191',
             "shipping_city" => 'required|string|max:191',
             "shipping_state_code" => 'required|integer',
-            "gst_number" => 'unique:firms'
+            "gst_number" => Rule::unique('firms')->ignore($id)
         ]);
         
         if ($validate == "validatePass") {
