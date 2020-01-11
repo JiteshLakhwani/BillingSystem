@@ -40,7 +40,6 @@ class ChallanService {
             $i +=1;
         }
 
-
         return response()->json($challans,200);
     }
 
